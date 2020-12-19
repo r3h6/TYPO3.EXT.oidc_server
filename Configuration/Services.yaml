@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  R3H6\OidcServer\:
+    resource: '../Classes/*'
+
+  OpenIDConnectServer\ClaimExtractor:
+    public: true
+
+  OpenIDConnectServer\IdTokenResponse:
+    public: true
+    arguments:
+      $identityProvider: '@R3H6\OidcServer\Domain\Repository\UserRepository'
+      $claimExtractor: '@OpenIDConnectServer\ClaimExtractor'

@@ -1,0 +1,24 @@
+{
+    "name": "r3h6/oidc-server",
+    "type": "typo3-cms-extension",
+    "description": "OpenID Connect Server.",
+    "authors": [],
+    "require": {
+		"typo3/cms-core": "^10.4",
+		"steverhoades/oauth2-openid-connect-server": "^1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "R3H6\\OidcServer\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "R3H6\\OidcServer\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "r3h6/oidc-server": "self.version",
+        "typo3-ter/oidc-server": "self.version"
+    }
+}
