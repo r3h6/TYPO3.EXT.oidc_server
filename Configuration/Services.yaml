@@ -7,6 +7,10 @@ services:
   R3H6\OidcServer\:
     resource: '../Classes/*'
 
+  R3H6\OidcServer\Controller\:
+    resource: '../Classes/Controller/*'
+    public: true
+
   OpenIDConnectServer\ClaimExtractor:
     public: true
 

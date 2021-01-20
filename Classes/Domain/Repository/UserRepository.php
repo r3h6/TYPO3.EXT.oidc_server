@@ -3,6 +3,8 @@ namespace R3H6\OidcServer\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 
 /***
  *
@@ -17,8 +19,10 @@ use OpenIDConnectServer\Repositories\IdentityProviderInterface;
 /**
  * UserRepository
  */
-final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository implements IdentityProviderInterface
+final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository implements IdentityProviderInterface, LoggerAwareInterface
 {
+
+    use LoggerAwareTrait;
 
     public function initializeObject()
     {
@@ -30,6 +34,7 @@ final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository imp
 
     public function getUserEntityByIdentifier($identifier)
     {
+        $this->logger->debug('Get user', ['identifier' => $identifier]);
         $this->initializeObject();
 
         $user = $this->findByUid($identifier);

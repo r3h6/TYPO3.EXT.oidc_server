@@ -21,26 +21,36 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
  */
 final class User extends FrontendUser implements UserEntityInterface, ClaimSetInterface
 {
-    use EntityTrait;
+
+
+    public function getIdentifier()
+    {
+        return $this->uid;
+    }
 
     public function getClaims()
     {
         return [
             // profile
-            'name' => $this->firstName . ' ' . $this->lastName,
+            'name' => implode(' ', array_filter([
+                $this->title,
+                $this->firstName,
+                $this->middleName,
+                $this->lastName,
+            ])),
             'family_name' => $this->lastName,
             'given_name' => $this->firstName,
             'middle_name' => $this->middleName,
-            // 'nickname' => '',
+            'nickname' => '',
             'preferred_username' => $this->username,
             'profile' => '',
-            'picture' => 'avatar.png',
+            'picture' => '',
             'website' => $this->www,
-            'gender' => 'M',
-            'birthdate' => null,//$this->birthdate,Y-m-d
+            'gender' => '',
+            'birthdate' => '',
             'zoneinfo' => '',
-            'locale' => 'US',
-            'updated_at' => '01/01/2018',
+            'locale' => '',
+            'updated_at' => '',//$this->tstamp->getTimestamp(),
             // email
             'email' => $this->email,
             'email_verified' => true,
@@ -48,7 +58,11 @@ final class User extends FrontendUser implements UserEntityInterface, ClaimSetIn
             'phone_number' => $this->telephone,
             'phone_number_verified' => true,
             // address
-            'address' => '50 any street, any state, 55555',
+            'address' => implode(', ', array_filter([
+                trim($this->address),
+                trim($this->zip .' '. $this->city),
+                trim($this->country),
+            ])),
         ];
     }
 }

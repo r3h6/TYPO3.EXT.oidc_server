@@ -1,10 +1,20 @@
 {
+	"repositories": [
+		{ "type": "path", "url": "../*", "options": { "symlink": true } }
+	],
     "name": "r3h6/oidc-server",
     "type": "typo3-cms-extension",
     "description": "OpenID Connect Server.",
-    "authors": [],
+	"authors": [],
+	"config": {
+		"vendor-dir": ".Build/vendor",
+		"bin-dir": ".Build/bin"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
     "require": {
 		"typo3/cms-core": "^10.4",
+		"r3h6/oauth2-server": "@dev",
 		"steverhoades/oauth2-openid-connect-server": "^1.3"
     },
     "autoload": {
@@ -14,11 +24,27 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "R3H6\\OidcServer\\Tests\\": "Tests"
+			"R3H6\\OidcServer\\Tests\\": "Tests",
+            "R3H6\\Oauth2Server\\Tests\\": ".Build/web/typo3conf/ext/oauth2_server/Tests/"
         }
     },
     "replace": {
         "r3h6/oidc-server": "self.version",
         "typo3-ter/oidc-server": "self.version"
-    }
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
+		]
+	},
+	"extra": {
+		"typo3/cms": {
+			"app-dir": ".Build",
+			"web-dir": ".Build/web",
+			"extension-key": "oidc_server"
+		}
+	},
+	"require-dev": {
+		"typo3/testing-framework": "^6.6"
+	}
 }

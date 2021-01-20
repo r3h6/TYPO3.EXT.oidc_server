@@ -4,21 +4,21 @@
         "backendModules": [],
         "description": "OpenID Connect Server.",
         "emConf": {
-            "category": "plugin",
+            "category": "services",
             "custom_category": "",
-            "dependsOn": "typo3 => 10.4.0-10.4.99\n",
-            "disableLocalization": false,
-            "disableVersioning": false,
-            "skipGenerateDocumentationTemplate": false,
+            "dependsOn": "typo3 => 10.4.0-10.4.99\noauth2_server => 1.0.0-1.99.99\n",
+            "disableLocalization": true,
+            "disableVersioning": true,
+            "skipGenerateDocumentationTemplate": true,
             "sourceLanguage": "en",
-            "state": "alpha",
+            "state": "beta",
             "targetVersion": "10.4.0-10.4.99",
             "version": "1.0.0"
         },
         "extensionKey": "oidc_server",
         "name": "OIDC Server",
-        "originalExtensionKey": "",
-        "originalVendorName": "",
+        "originalExtensionKey": "oidc_server",
+        "originalVendorName": "R3H6",
         "persons": [],
         "plugins": [],
         "vendorName": "R3H6"
@@ -26,7 +26,7 @@
     "wires": [],
     "storagePath": "\/var\/www\/html\/packages\/",
     "log": {
-        "last_modified": "2020-12-13 11:06",
+        "last_modified": "2020-12-19 01:20",
         "extension_builder_version": "9.11.0",
         "be_user": " (1)"
     }
