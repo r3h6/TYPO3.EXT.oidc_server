@@ -3,6 +3,8 @@ services:
     autowire: true
     autoconfigure: true
     public: false
+    bind:
+      League\OAuth2\Server\AuthorizationServer $oidcServer: '@R3H6\OidcServer\Server\AuthorizationServer'
 
   R3H6\OidcServer\:
     resource: '../Classes/*'
@@ -10,6 +12,10 @@ services:
   R3H6\OidcServer\Controller\:
     resource: '../Classes/Controller/*'
     public: true
+
+  R3H6\OidcServer\Server\AuthorizationServer:
+    class: 'League\OAuth2\Server\AuthorizationServer'
+    factory: '@R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory'
 
   OpenIDConnectServer\ClaimExtractor:
     public: true

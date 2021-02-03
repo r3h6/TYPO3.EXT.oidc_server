@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "../oauth2_server"
+		},
+		{
+			"path": "."
+		}
+	],
+	"remoteAuthority": "wsl+Ubuntu",
+	"settings": {}
+}
