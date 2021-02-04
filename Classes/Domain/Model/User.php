@@ -1,10 +1,11 @@
 <?php
 namespace R3H6\OidcServer\Domain\Model;
 
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
-use League\OAuth2\Server\Entities\UserEntityInterface;
-use OpenIDConnectServer\Entities\ClaimSetInterface;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use OpenIDConnectServer\Entities\ClaimSetInterface;
+use League\OAuth2\Server\Entities\Traits\EntityTrait;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
+use League\OAuth2\Server\Entities\UserEntityInterface;
 
 /***
  *
@@ -21,7 +22,10 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
  */
 final class User extends FrontendUser implements UserEntityInterface, ClaimSetInterface
 {
-
+    /**
+     * @var int
+     */
+    protected $tstamp;
 
     public function getIdentifier()
     {
@@ -50,7 +54,7 @@ final class User extends FrontendUser implements UserEntityInterface, ClaimSetIn
             'birthdate' => '',
             'zoneinfo' => '',
             'locale' => '',
-            'updated_at' => '',//$this->tstamp->getTimestamp(),
+            'updated_at' => $this->tstamp,
             // email
             'email' => $this->email,
             'email_verified' => true,
@@ -63,6 +67,13 @@ final class User extends FrontendUser implements UserEntityInterface, ClaimSetIn
                 trim($this->zip .' '. $this->city),
                 trim($this->country),
             ])),
+
+            // Custom
+            'Roles' => implode(', ', array_map(function(FrontendUserGroup $group) {
+                    return $group->getTitle();
+                }, $this->usergroup->toArray())),
         ];
     }
+
+
 }

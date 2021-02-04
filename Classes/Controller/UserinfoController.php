@@ -2,20 +2,20 @@
 
 namespace R3H6\OidcServer\Controller;
 
+use TYPO3\CMS\Core\Http\Response;
+use TYPO3\CMS\Core\Http\JsonResponse;
 use OpenIDConnectServer\ClaimExtractor;
 use Psr\Http\Message\ResponseInterface;
 use League\OAuth2\Server\ResourceServer;
 use Psr\Http\Message\ServerRequestInterface;
-use R3H6\OidcServer\Domain\Repository\UserRepository;
-use TYPO3\CMS\Core\Http\JsonResponse;
-use TYPO3\CMS\Core\Http\Response;
+use OpenIDConnectServer\Repositories\IdentityProviderInterface;
 
 class UserinfoController
 {
     /**
-     * @var \R3H6\OidcServer\Domain\Repository\UserRepository
+     * @var \OpenIDConnectServer\Repositories\IdentityProviderInterface
      */
-    protected $userRepository;
+    protected $identityProvider;
 
     /**
      * @var \League\OAuth2\Server\ResourceServer
@@ -27,15 +27,19 @@ class UserinfoController
      */
     protected $claimExtractor;
 
-    public function __construct(ResourceServer $server, UserRepository $userRepository, ClaimExtractor $claimExtractor)
+    public function __construct(ResourceServer $server, IdentityProviderInterface $identityProvider, ClaimExtractor $claimExtractor)
     {
-        $this->userRepository = $userRepository;
+        $this->identityProvider = $identityProvider;
         $this->server = $server;
         $this->claimExtractor = $claimExtractor;
     }
 
-    public function getAction(ServerRequestInterface $request): ResponseInterface
+    public function getClaims(ServerRequestInterface $request): ResponseInterface
     {
+        if ($request->getUri()->getScheme() !== 'https') {
+            return new Response('Must use https', 403);
+        }
+
         $request = $this->server->validateAuthenticatedRequest($request);
 
         // $https = $request->getServerParams()['HTTPS'] ?? 'off';
@@ -43,7 +47,7 @@ class UserinfoController
         //     return new Response('', 500);
         // }
 
-        $userEntity = $this->userRepository->getUserEntityByIdentifier($request->getAttribute('oauth_user_id'));
+        $userEntity = $this->identityProvider->getUserEntityByIdentifier($request->getAttribute('oauth_user_id'));
 
         $scopes = $request->getAttribute('oauth_scopes');
         $claims = $this->claimExtractor->extract($scopes, $userEntity->getClaims());
