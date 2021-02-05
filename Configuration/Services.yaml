@@ -5,6 +5,7 @@ services:
     public: false
     bind:
       League\OAuth2\Server\AuthorizationServer $oidcServer: '@R3H6\OidcServer\Server\AuthorizationServer'
+      OpenIDConnectServer\Repositories\IdentityProviderInterface: '@R3H6\OidcServer\Domain\Repository\UserRepository'
 
   R3H6\OidcServer\:
     resource: '../Classes/*'
@@ -26,5 +27,3 @@ services:
     arguments:
       $identityProvider: '@R3H6\OidcServer\Domain\Repository\UserRepository'
       $claimExtractor: '@OpenIDConnectServer\ClaimExtractor'
-
-  OpenIDConnectServer\Repositories\IdentityProviderInterface: '@R3H6\OidcServer\Domain\Repository\UserRepository'
