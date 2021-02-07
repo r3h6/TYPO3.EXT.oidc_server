@@ -14,15 +14,20 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
     ];
 
     protected $configurationToUseInTestInstance = [
+        'EXTENSIONS' => [
+            'oauth2_server' => [
+                'server' => [
+                    'consentPageUid' => '1',
+                ]
+            ]
+        ],
         'LOG' => [
             'R3H6' => [
-
-                    'writerConfiguration' => [
-                        \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
-                            \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [],
-                        ]
+                'writerConfiguration' => [
+                    \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
+                        \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [],
                     ]
-
+                ]
             ],
             'TYPO3' => [
                 'CMS' => [

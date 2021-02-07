@@ -3,12 +3,13 @@ namespace R3H6\OidcServer\Domain\Factory;
 
 use OpenIDConnectServer\IdTokenResponse;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use R3H6\Oauth2Server\Domain\Configuration;
+
+use R3H6\Oauth2Server\Configuration\RuntimeConfiguration;
 use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 
 class AuthorizationServerFactory extends \R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactory
 {
-    public function __invoke(Configuration $configuration)
+    public function __invoke(RuntimeConfiguration $configuration)
     {
         return parent::__invoke($configuration);
     }

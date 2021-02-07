@@ -3,13 +3,13 @@ namespace R3H6\OidcServer\Domain\Factory;
 
 use TYPO3\CMS\Core\SingletonInterface;
 use OpenIDConnectServer\ClaimExtractor;
-use R3H6\Oauth2Server\Domain\Configuration;
 use OpenIDConnectServer\Entities\ClaimSetEntity;
+use R3H6\Oauth2Server\Configuration\RuntimeConfiguration;
 
 
 class ClaimExtractorFactory implements SingletonInterface
 {
-    public function __invoke(Configuration $configuration)
+    public function __invoke(RuntimeConfiguration $configuration)
     {
         $extractor = new ClaimExtractor();
 
