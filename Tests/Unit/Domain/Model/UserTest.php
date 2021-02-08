@@ -2,6 +2,7 @@
 namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
 use TYPO3\CMS\Core\Resource\FileInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
@@ -29,7 +30,8 @@ class UserTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
      */
     public function getClaimsContainsPicture()
     {
-        $GLOBALS['_SERVER']['REQUEST_URI'] = 'http://localhost/oauth/userinfo';
+        // $GLOBALS['_SERVER']['REQUEST_URI'] = 'http://localhost/oauth/userinfo';
+        GeneralUtility::setIndpEnv('TYPO3_REQUEST_HOST', 'http://localhost');
 
         $resource = $this->prophesize(FileInterface::class);
         $resource->getPublicUrl()->willReturn('fileadmin/user_upload/profile.jpg');

@@ -90,9 +90,7 @@ final class User extends FrontendUser implements UserEntityInterface, ClaimSetIn
             'profile' => '',
             'picture' => call_user_func(function(ObjectStorage $images){
                     foreach ($images as $image) {
-                        /** @var Uri $requestUri */
-                        $requestUri = GeneralUtility::makeInstance(Uri::class, $_SERVER['REQUEST_URI']);
-                        return $requestUri->getScheme() . '://' . $requestUri->getHost() . '/' . $image->getOriginalResource()->getPublicUrl();
+                        return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
                     }
                     return '';
                 }, $this->image),
