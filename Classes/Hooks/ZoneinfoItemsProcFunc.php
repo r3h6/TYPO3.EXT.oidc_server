@@ -1,7 +1,7 @@
 <?php
 namespace R3H6\OidcServer\Hooks;
 
-class ZoneinfoItemsProcFunc
+final class ZoneinfoItemsProcFunc
 {
     public const CALLBACK = self::class . '->getItems';
 

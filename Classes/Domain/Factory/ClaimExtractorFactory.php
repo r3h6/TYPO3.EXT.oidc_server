@@ -13,10 +13,11 @@ class ClaimExtractorFactory implements SingletonInterface
     {
         $extractor = new ClaimExtractor();
 
-        $claimSet = new ClaimSetEntity('role', [
-            'Roles', // EXT:oidc
-        ]);
-        $extractor->addClaimSet($claimSet);
+        $claimSets = (array) ($configuration->get('claimSets') ?? []);
+        foreach ($claimSets as $scope => $claims) {
+            $claimSet = new ClaimSetEntity($scope, $claims);
+            $extractor->addClaimSet($claimSet);
+        }
 
         return $extractor;
     }

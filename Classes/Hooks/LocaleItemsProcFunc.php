@@ -4,7 +4,7 @@ namespace R3H6\OidcServer\Hooks;
 use TYPO3\CMS\Core\Localization\Locales;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class LocaleItemsProcFunc
+final class LocaleItemsProcFunc
 {
     public const CALLBACK = self::class . '->getItems';
 

@@ -23,7 +23,7 @@ use League\OAuth2\Server\Entities\UserEntityInterface;
 /**
  * User
  */
-final class User extends FrontendUser implements UserEntityInterface, ClaimSetInterface
+class User extends FrontendUser implements UserEntityInterface, ClaimSetInterface
 {
     /**
      * tstamp
@@ -74,7 +74,7 @@ final class User extends FrontendUser implements UserEntityInterface, ClaimSetIn
 
     public function getClaims()
     {
-        return [
+        $claims = [
             // profile
             'name' => implode(' ', array_filter([
                 $this->title,
@@ -112,12 +112,18 @@ final class User extends FrontendUser implements UserEntityInterface, ClaimSetIn
                 trim($this->zip .' '. $this->city),
                 trim($this->country),
             ])),
-
-            // Custom
-            'Roles' => implode(', ', array_map(function(FrontendUserGroup $group) {
-                    return $group->getTitle();
-                }, $this->usergroup->toArray())),
         ];
+
+        $hooks = (array) ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims'] ?? []);
+        foreach ($hooks as $classRef) {
+            if (is_a($classRef, UserGetClaimsHookInterface::class, true)) {
+                $hook = GeneralUtility::makeInstance($classRef);
+                $hook->modifyClaims($claims, $this);
+            }
+        }
+
+        return $claims;
+
     }
 
     /**
