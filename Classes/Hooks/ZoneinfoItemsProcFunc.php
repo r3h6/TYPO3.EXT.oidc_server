@@ -1,4 +1,5 @@
 <?php
+
 namespace R3H6\OidcServer\Hooks;
 
 final class ZoneinfoItemsProcFunc

@@ -1,4 +1,5 @@
 <?php
+
 namespace R3H6\OidcServer\Hooks;
 
 use TYPO3\CMS\Core\Localization\Locales;

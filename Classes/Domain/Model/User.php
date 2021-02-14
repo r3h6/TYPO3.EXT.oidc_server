@@ -1,14 +1,12 @@
 <?php
+
 namespace R3H6\OidcServer\Domain\Model;
 
-use TYPO3\CMS\Core\Http\Uri;
+use League\OAuth2\Server\Entities\UserEntityInterface;
+use OpenIDConnectServer\Entities\ClaimSetInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use OpenIDConnectServer\Entities\ClaimSetInterface;
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
-use League\OAuth2\Server\Entities\UserEntityInterface;
 
 /***
  *
@@ -30,7 +28,7 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
      *
      * @var int
      */
-    protected $tstamp = null;
+    protected $tstamp;
 
     /**
      * nickname
@@ -51,7 +49,7 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
      *
      * @var \DateTime
      */
-    protected $birthdate = null;
+    protected $birthdate;
 
     /**
      * locale
@@ -88,12 +86,12 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'nickname' => $this->nickname,
             'preferred_username' => $this->username,
             'profile' => '',
-            'picture' => call_user_func(function(ObjectStorage $images){
-                    foreach ($images as $image) {
-                        return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
-                    }
-                    return '';
-                }, $this->image),
+            'picture' => call_user_func(function (ObjectStorage $images) {
+                foreach ($images as $image) {
+                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
+                }
+                return '';
+            }, $this->image),
             'website' => $this->www,
             'gender' => $this->gender,
             'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : '0000',
@@ -109,12 +107,12 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             // address
             'address' => implode(', ', array_filter([
                 trim($this->address),
-                trim($this->zip .' '. $this->city),
+                trim($this->zip . ' ' . $this->city),
                 trim($this->country),
             ])),
         ];
 
-        $hooks = (array) ($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims'] ?? []);
+        $hooks = (array)($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims'] ?? []);
         foreach ($hooks as $classRef) {
             if (is_a($classRef, UserGetClaimsHookInterface::class, true)) {
                 $hook = GeneralUtility::makeInstance($classRef);
@@ -123,7 +121,6 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
         }
 
         return $claims;
-
     }
 
     /**
@@ -140,7 +137,6 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
      * Sets the nickname
      *
      * @param string $nickname
-     * @return void
      */
     public function setNickname($nickname)
     {
@@ -161,7 +157,6 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
      * Sets the gender
      *
      * @param string $gender
-     * @return void
      */
     public function setGender($gender)
     {
@@ -182,7 +177,6 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
      * Sets the birthdate
      *
      * @param \DateTime $birthdate
-     * @return void
      */
     public function setBirthdate(\DateTime $birthdate)
     {
@@ -203,7 +197,6 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
      * Sets the locale
      *
      * @param string $locale
-     * @return void
      */
     public function setLocale($locale)
     {

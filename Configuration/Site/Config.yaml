@@ -1,0 +1,10 @@
+oauth2:
+
+  server: R3H6\OidcServer\Http\OidcServer
+
+  claimSets:
+    role:
+      - Roles
+    example:
+      - other
+      - claim
