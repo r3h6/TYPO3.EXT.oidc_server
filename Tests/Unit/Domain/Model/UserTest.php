@@ -12,7 +12,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class UserTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    // use \Prophecy\PhpUnit\ProphecyTrait;
 
     /**
      * @var \R3H6\OidcServer\Domain\Model\User

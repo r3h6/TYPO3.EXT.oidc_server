@@ -13,7 +13,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  */
 class RoleClaimHookTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
 {
-    use \Prophecy\PhpUnit\ProphecyTrait;
+    // use \Prophecy\PhpUnit\ProphecyTrait;
 
     /**
      * @test
