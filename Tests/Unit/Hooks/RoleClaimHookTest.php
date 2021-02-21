@@ -1,14 +1,12 @@
 <?php
+
 namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
 use Psr\Log\LoggerInterface;
 use R3H6\OidcServer\Domain\Model\User;
 use R3H6\OidcServer\Hooks\RoleClaimHook;
-use TYPO3\CMS\Core\Resource\FileInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case.

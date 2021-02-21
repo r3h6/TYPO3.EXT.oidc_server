@@ -6,14 +6,10 @@ use OpenIDConnectServer\ClaimExtractor;
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use R3H6\Oauth2Server\Security\ResourceGuardAwareInterface;
-use R3H6\Oauth2Server\Security\ResourceGuardAwareTrait;
 use TYPO3\CMS\Core\Http\JsonResponse;
 
-class UserinfoController implements ResourceGuardAwareInterface
+class UserinfoController
 {
-    use ResourceGuardAwareTrait;
-
     /**
      * @var \OpenIDConnectServer\Repositories\IdentityProviderInterface
      */
@@ -32,8 +28,6 @@ class UserinfoController implements ResourceGuardAwareInterface
 
     public function getClaims(ServerRequestInterface $request): ResponseInterface
     {
-        $this->resourceGuard->validateAuthenticatedRequest($request);
-
         $userEntity = $this->identityProvider->getUserEntityByIdentifier($request->getAttribute('oauth_user_id'));
 
         $scopes = $request->getAttribute('oauth_scopes');

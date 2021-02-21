@@ -17,7 +17,7 @@ final class RoleClaimHook implements UserGetClaimsHookInterface, LoggerAwareInte
         $this->logger->debug('Add claim "Roles"');
 
         $claims['Roles'] = implode(', ', array_map(function (FrontendUserGroup $group) {
-            return $group->getTitle();
+            return str_replace(',', ' ', $group->getTitle());
         }, $user->getUsergroup()->toArray()));
     }
 }

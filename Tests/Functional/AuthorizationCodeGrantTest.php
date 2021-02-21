@@ -48,11 +48,11 @@ class AuthorizationCodeGrantTest extends FunctionalTestCase
             ]
         );
 
-        $token = json_decode((string) $response->getBody(), true);
+        $token = json_decode((string)$response->getBody(), true);
 
-        $this->assertSame('Bearer', $token['token_type']);
-        $this->assertArrayHasKey('id_token', $token);
-        $this->assertArrayHasKey('expires_in', $token);
-        $this->assertArrayHasKey('access_token', $token);
+        self::assertSame('Bearer', $token['token_type']);
+        self::assertArrayHasKey('id_token', $token);
+        self::assertArrayHasKey('expires_in', $token);
+        self::assertArrayHasKey('access_token', $token);
     }
 }

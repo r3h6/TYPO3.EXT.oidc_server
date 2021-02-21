@@ -1,13 +1,45 @@
 # EXT:oidc_server
 
-```yaml
-oauth2:
-  server: R3H6\OidcServer\Http\OidcServer
+OpenID Connect server for TYPO3.
 
-  routes:
-    'GET:oauth/authorize': 'R3H6\OidcServer\Controller\AuthorizationController::startAuthorization'
-    'POST:oauth/authorize': 'R3H6\OidcServer\Controller\AuthorizationController::approveAuthorization'
-    'DELETE:oauth/authorize': 'R3H6\OidcServer\Controller\AuthorizationController::denyAuthorization'
-    'POST:oauth/token': 'R3H6\OidcServer\Controller\TokenController::issueAccessToken'
-    'GET:oauth/userinfo': 'R3H6\OidcServer\Controller\UserinfoController::getClaims'
+## Installation
+
+**Only composer supported!**
+
+```bash
+$ composer require r3h6/oidc-server
 ```
+
+## Configuration
+
+```yaml
+
+oauth2:
+  # Enable oidc support
+  oidc: true
+
+  # Define custom claim sets
+  claimSets:
+    # Scope
+    role:
+      # Claims (see hooks)
+      - Roles
+
+```
+
+## Integration
+```yaml
+imports:
+    - { resource: 'EXT:oidc_server/Configuration/Site/Config.yaml' }
+```
+
+## Hooks
+
+Location
+: R3H6\OidcServer\Domain\Model\User::getClaims
+
+Register
+: $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims']
+
+Interface
+: R3H6\OidcServer\Domain\Model\UserGetClaimsHookInterface

@@ -5,16 +5,13 @@ services:
     public: false
     bind:
       OpenIDConnectServer\Repositories\IdentityProviderInterface: '@R3H6\OidcServer\Domain\Repository\UserRepository'
-      R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactory $oidcAuthorizationServerFactory: '@R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory'
+      #R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactory: '@R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory'
 
   R3H6\OidcServer\:
     resource: '../Classes/*'
 
   R3H6\OidcServer\Controller\:
     resource: '../Classes/Controller/*'
-    public: true
-
-  R3H6\OidcServer\Http\OidcServer:
     public: true
 
   OpenIDConnectServer\ClaimExtractor:
@@ -26,3 +23,7 @@ services:
     arguments:
       $identityProvider: '@R3H6\OidcServer\Domain\Repository\UserRepository'
       $claimExtractor: '@OpenIDConnectServer\ClaimExtractor'
+
+
+  R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactoryInterface:
+    class: R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory

@@ -17,8 +17,6 @@ languages:
 rootPageId: 1
 routes: {  }
 websiteTitle: 'Test OIDC Server'
-oauth2:
-  server: R3H6\OidcServer\Http\OidcServer
-  claimSets:
-    role:
-      - Roles
+
+imports:
+    - { resource: 'EXT:oidc_server/Configuration/Site/Config.yaml' }
