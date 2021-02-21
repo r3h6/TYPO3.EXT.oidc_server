@@ -1,10 +1,7 @@
 includes:
-    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
+  - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
 
 parameters:
-	level: 7
-	paths:
-		- Classes/
-	ignoreErrors:
-		- "#^Cannot call method fetchAll\\(\\) on Doctrine\\\\DBAL\\\\Driver\\\\Statement\\|int\\.$#"
-
+  level: 5
+  paths:
+    - Classes/

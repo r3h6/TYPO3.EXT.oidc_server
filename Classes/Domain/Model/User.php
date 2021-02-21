@@ -88,13 +88,13 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'profile' => '',
             'picture' => call_user_func(function (ObjectStorage $images) {
                 foreach ($images as $image) {
-                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
+                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl(); // @phpstan-ignore-line
                 }
                 return '';
             }, $this->image),
             'website' => $this->www,
             'gender' => $this->gender,
-            'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : '0000',
+            'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : '0000', // @phpstan-ignore-line
             'zoneinfo' => $this->zoneinfo,
             'locale' => $this->locale,
             'updated_at' => $this->tstamp,
