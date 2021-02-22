@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 namespace R3H6\OidcServer\Domain\Repository;
 
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
@@ -17,6 +18,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
  *  (c) 2020
  *
  ***/
+
 /**
  * UserRepository
  */

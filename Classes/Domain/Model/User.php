@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 namespace R3H6\OidcServer\Domain\Model;
 
 use League\OAuth2\Server\Entities\UserEntityInterface;
@@ -18,6 +19,7 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *  (c) 2020
  *
  ***/
+
 /**
  * User
  */
