@@ -45,6 +45,18 @@ class AuthorizationCodeGrantTest extends FunctionalTestCase
         );
 
         $response = $this->doFrontendRequest(
+            'GET',
+            '/oauth2/authorize',
+            [
+                'response_type' => 'code',
+                'client_id' => '660e56d72c12f9a1e2ec',
+                'redirect_uri' => 'http://localhost/',
+                'scope' => 'openid',
+            ],
+            $this->getLastCookie()
+        );
+
+        $response = $this->doFrontendRequest(
             'POST',
             '/oauth2/authorize',
             [],

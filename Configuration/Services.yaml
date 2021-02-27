@@ -5,7 +5,6 @@ services:
     public: false
     bind:
       OpenIDConnectServer\Repositories\IdentityProviderInterface: '@R3H6\OidcServer\Domain\Repository\UserRepository'
-      #R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactory: '@R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory'
 
   R3H6\OidcServer\:
     resource: '../Classes/*'

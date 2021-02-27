@@ -41,11 +41,11 @@ oauth2:
 
 ## Hooks
 
-Location
-: R3H6\OidcServer\Domain\Model\User::getClaims
-
-Register
-: $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims']
-
-Interface
-: R3H6\OidcServer\Domain\Model\UserGetClaimsHookInterface
+<dl>
+    <dt>Location</dt>
+    <dd>R3H6\OidcServer\Domain\Model\User::getClaims</dd>
+    <dt>Register</dt>
+    <dd>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims']</dd>
+    <dt>Interface</dt>
+    <dd>R3H6\OidcServer\Domain\Model\UserGetClaimsHookInterface</dd>
+</dl>

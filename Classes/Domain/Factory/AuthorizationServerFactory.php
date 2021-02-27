@@ -5,6 +5,8 @@ namespace R3H6\OidcServer\Domain\Factory;
 
 use League\OAuth2\Server\ResponseTypes\ResponseTypeInterface;
 use OpenIDConnectServer\IdTokenResponse;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use R3H6\Oauth2Server\Configuration\Configuration;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -22,11 +24,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * AuthorizationServerFactory
  */
-class AuthorizationServerFactory extends \R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactory
+class AuthorizationServerFactory extends \R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactory implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     protected function getResponseType(Configuration $configuration): ?ResponseTypeInterface
     {
         if ($configuration['oidc']) {
+            $this->logger->debug('Set response type to IdTokenResponse');
             return GeneralUtility::makeInstance(IdTokenResponse::class);
         }
         return null;

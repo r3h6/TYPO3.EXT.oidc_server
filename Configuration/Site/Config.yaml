@@ -3,6 +3,8 @@ oauth2:
   oidc: true
 
   endpoints:
+    oauth2_authorize:
+      target: R3H6\OidcServer\Controller\AuthorizationController::startAuthorization
     oidc_userinfo:
       path: /userinfo
       methods: GET
