@@ -1,10 +1,10 @@
 {
-	"repositories": [
-		{ "type": "path", "url": "../*", "options": { "symlink": true } }
-	],
     "name": "r3h6/oidc-server",
     "type": "typo3-cms-extension",
     "description": "OpenID Connect Server.",
+	"license":  [
+		"GPL-2.0-or-later"
+	],
 	"authors": [],
 	"config": {
 		"vendor-dir": ".Build/vendor",
@@ -14,7 +14,7 @@
 	"prefer-stable": true,
     "require": {
 		"typo3/cms-core": "^10.4",
-		"r3h6/oauth2-server": "@dev",
+		"r3h6/oauth2-server": "^1.0",
 		"steverhoades/oauth2-openid-connect-server": "^1.3"
     },
     "autoload": {
@@ -24,8 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-			"R3H6\\OidcServer\\Tests\\": "Tests",
-            "R3H6\\Oauth2Server\\Tests\\": ".Build/web/typo3conf/ext/oauth2_server/Tests/"
+			"R3H6\\OidcServer\\Tests\\": "Tests"
         }
     },
     "replace": {
@@ -46,6 +45,10 @@
 	},
 	"require-dev": {
 		"typo3/testing-framework": "^6.6",
-		"phpspec/prophecy-phpunit": "^2.0"
+		"saschaegerer/phpstan-typo3": "^0.13.1",
+		"friendsofphp/php-cs-fixer": "^2.18",
+		"typo3/coding-standards": "^0.2.0",
+		"phpmd/phpmd": "^2.9",
+		"phpunit/phpunit": "^8.0"
 	}
 }

@@ -4,7 +4,6 @@ services:
     autoconfigure: true
     public: false
     bind:
-      League\OAuth2\Server\AuthorizationServer $oidcServer: '@R3H6\OidcServer\Server\AuthorizationServer'
       OpenIDConnectServer\Repositories\IdentityProviderInterface: '@R3H6\OidcServer\Domain\Repository\UserRepository'
 
   R3H6\OidcServer\:
@@ -13,10 +12,6 @@ services:
   R3H6\OidcServer\Controller\:
     resource: '../Classes/Controller/*'
     public: true
-
-  R3H6\OidcServer\Server\AuthorizationServer:
-    class: 'League\OAuth2\Server\AuthorizationServer'
-    factory: '@R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory'
 
   OpenIDConnectServer\ClaimExtractor:
     class: 'OpenIDConnectServer\ClaimExtractor'
@@ -27,3 +22,7 @@ services:
     arguments:
       $identityProvider: '@R3H6\OidcServer\Domain\Repository\UserRepository'
       $claimExtractor: '@OpenIDConnectServer\ClaimExtractor'
+
+
+  R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactoryInterface:
+    class: R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory

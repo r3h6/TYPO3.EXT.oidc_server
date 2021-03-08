@@ -1,10 +1,12 @@
 <?php
+
+declare(strict_types=1);
 namespace R3H6\OidcServer\Domain\Repository;
 
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /***
  *
@@ -16,12 +18,12 @@ use Psr\Log\LoggerAwareTrait;
  *  (c) 2020
  *
  ***/
+
 /**
  * UserRepository
  */
 final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository implements IdentityProviderInterface, LoggerAwareInterface
 {
-
     use LoggerAwareTrait;
 
     public function initializeObject()

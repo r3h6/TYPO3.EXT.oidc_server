@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:oidc_server/Resources/Private/Language/locallang_db" date="2021-02-07T18:19:17Z" product-name="oidc_server">
+		<header/>
+		<body>
+			<trans-unit id="scope_profile">
+				<source>Basic information about you such as name, birthday and profile picture.</source>
+			</trans-unit>
+			<trans-unit id="scope_email">
+				<source>Your e-mail address.</source>
+			</trans-unit>
+			<trans-unit id="scope_address">
+				<source>Your address details.</source>
+			</trans-unit>
+			<trans-unit id="scope_phone">
+				<source>Your phone number.</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
