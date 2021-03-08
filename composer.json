@@ -24,8 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-			"R3H6\\OidcServer\\Tests\\": "Tests",
-            "R3H6\\Oauth2Server\\Tests\\": ".Build/web/typo3conf/ext/oauth2_server/Tests/"
+			"R3H6\\OidcServer\\Tests\\": "Tests"
         }
     },
     "replace": {

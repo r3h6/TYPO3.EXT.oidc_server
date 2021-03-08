@@ -19,7 +19,7 @@ namespace R3H6\OidcServer\Tests\Functional;
  */
 class UserinfoTest extends FunctionalTestCase
 {
-    use \R3H6\Oauth2Server\Tests\Functional\FunctionalTestHelper;
+    use FunctionalTestHelper;
 
     /**
      * @test
