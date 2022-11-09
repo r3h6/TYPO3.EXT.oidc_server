@@ -8,14 +8,18 @@
 	"authors": [],
 	"config": {
 		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin"
+		"bin-dir": ".Build/bin",
+        "allow-plugins": {
+            "typo3/cms-composer-installers": true,
+            "typo3/class-alias-loader": true
+        }
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true,
     "require": {
-		"typo3/cms-core": "^10.4",
-		"r3h6/oauth2-server": "^1.0",
-		"steverhoades/oauth2-openid-connect-server": "^1.3"
+		"typo3/cms-core": "^10.4 || ^11.5",
+		"r3h6/oauth2-server": "^1.2",
+		"steverhoades/oauth2-openid-connect-server": "^2.0"
     },
     "autoload": {
         "psr-4": {
@@ -34,7 +38,12 @@
 	"scripts": {
 		"post-autoload-dump": [
 			"TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-		]
+		],
+		"ci:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php -v --dry-run --using-cache no --diff",
+		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"ci:php:stan": "phpstan --no-progress",
+		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
+		"fix:php:cs": "php-cs-fixer fix --config .php-cs-fixer.php"
 	},
 	"extra": {
 		"typo3/cms": {
@@ -44,11 +53,11 @@
 		}
 	},
 	"require-dev": {
-		"typo3/testing-framework": "^6.6",
-		"saschaegerer/phpstan-typo3": "^0.13.1",
-		"friendsofphp/php-cs-fixer": "^2.18",
-		"typo3/coding-standards": "^0.2.0",
+		"typo3/testing-framework": "^6.16",
+		"saschaegerer/phpstan-typo3": "^1.1",
+		"typo3/coding-standards": "^0.5.5",
 		"phpmd/phpmd": "^2.9",
-		"phpunit/phpunit": "^8.0"
+		"phpunit/phpunit": "^8.0",
+        "phpspec/prophecy": "^1.15"
 	}
 }

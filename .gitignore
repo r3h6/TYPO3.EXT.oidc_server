@@ -2,4 +2,4 @@
 /.Build/
 /composer.lock
 .env
-.php_cs.cache
+*.cache

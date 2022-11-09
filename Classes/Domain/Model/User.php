@@ -90,7 +90,7 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'profile' => '',
             'picture' => call_user_func(function (ObjectStorage $images) {
                 foreach ($images as $image) {
-                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl(); // @phpstan-ignore-line
+                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
                 }
                 return '';
             }, $this->image),

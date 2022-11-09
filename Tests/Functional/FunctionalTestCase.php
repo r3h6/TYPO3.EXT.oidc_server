@@ -33,16 +33,16 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
             'oauth2_server' => [
                 'server' => [
                     'consentPageUid' => '1',
-                ]
-            ]
+                ],
+            ],
         ],
         'LOG' => [
             'R3H6' => [
                 'writerConfiguration' => [
                     \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
                         \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [],
-                    ]
-                ]
+                    ],
+                ],
             ],
             'TYPO3' => [
                 'CMS' => [
@@ -51,15 +51,15 @@ abstract class FunctionalTestCase extends \TYPO3\TestingFramework\Core\Functiona
                             'writerConfiguration' => [
                                 \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
                                     \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
-                                        'logFile' =>  'typo3temp/var/log/auth.log'
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]
+                                        'logFile' =>  'typo3temp/var/log/auth.log',
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ];
 
     protected function setUp(): void
