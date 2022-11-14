@@ -18,9 +18,9 @@ use R3H6\OidcServer\Exception\LoginRequiredException;
  *
  ***/
 
- /**
-  * Authorization endpoint
-  */
+/**
+ * Authorization endpoint
+ */
 class AuthorizationController extends \R3H6\Oauth2Server\Controller\AuthorizationController
 {
     /**

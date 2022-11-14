@@ -19,11 +19,11 @@ $EM_CONF[$_EXTKEY] = [
     'state' => 'beta',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.0',
+    'version' => '1.1.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-10.4.99',
-            'oauth2_server' => '1.0.0-1.99.99',
+            'typo3' => '10.4.0-11.5.99',
+            'oauth2_server' => '1.2.0-1.99.99',
         ],
         'conflicts' => [],
         'suggests' => [],

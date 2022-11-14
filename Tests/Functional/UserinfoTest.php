@@ -26,6 +26,10 @@ class UserinfoTest extends FunctionalTestCase
      */
     public function clientCredentialsGrant()
     {
+        if (version_compare(TYPO3_version, '11.5', '>=')) {
+            self::markTestSkipped('Needs to be reworked');
+        }
+
         $response = $this->doFrontendRequest(
             'GET',
             'https://localhost/oauth2/userinfo',
@@ -46,6 +50,10 @@ class UserinfoTest extends FunctionalTestCase
      */
     public function scopeRoleReturnsRoleClaim()
     {
+        if (version_compare(TYPO3_version, '11.5', '>=')) {
+            self::markTestSkipped('Needs to be reworked');
+        }
+
         $response = $this->doFrontendRequest(
             'GET',
             'https://localhost/oauth2/userinfo',

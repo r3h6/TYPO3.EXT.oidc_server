@@ -6,6 +6,7 @@ namespace R3H6\OidcServer\Domain\Repository;
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /***
@@ -29,7 +30,7 @@ final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository imp
     public function initializeObject()
     {
         /** \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
-        $querySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
