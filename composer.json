@@ -32,7 +32,6 @@
         }
     },
     "replace": {
-        "r3h6/oidc-server": "self.version",
         "typo3-ter/oidc-server": "self.version"
 	},
 	"scripts": {
