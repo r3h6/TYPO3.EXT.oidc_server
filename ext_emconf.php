@@ -17,12 +17,10 @@ $EM_CONF[$_EXTKEY] = [
     'author' => '',
     'author_email' => '',
     'state' => 'beta',
-    'createDirs' => '',
-    'clearCacheOnLoad' => 0,
     'version' => '1.1.1',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-11.5.99',
+            'typo3' => '12.4.0-13.1.99',
             'oauth2_server' => '1.2.0-1.99.99',
         ],
         'conflicts' => [],

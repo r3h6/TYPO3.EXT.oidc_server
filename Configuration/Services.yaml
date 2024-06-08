@@ -23,6 +23,19 @@ services:
       $identityProvider: '@R3H6\OidcServer\Domain\Repository\UserRepository'
       $claimExtractor: '@OpenIDConnectServer\ClaimExtractor'
 
+  R3H6\OidcServer\EventListener\SetIdTokenResponseOnAuthorizationServer:
+    tags:
+      - name: event.listener
 
-  R3H6\Oauth2Server\Domain\Factory\AuthorizationServerFactoryInterface:
-    class: R3H6\OidcServer\Domain\Factory\AuthorizationServerFactory
+  R3H6\OidcServer\EventListener\HandlePromptParamForConsent:
+    tags:
+      - name: event.listener
+
+  R3H6\OidcServer\EventListener\HandlePromptParamForAuthentication:
+    tags:
+      - name: event.listener
+
+  R3H6\OidcServer\EventListener\AddRoutesForAuthorizationServer:
+    tags:
+      - name: event.listener
+

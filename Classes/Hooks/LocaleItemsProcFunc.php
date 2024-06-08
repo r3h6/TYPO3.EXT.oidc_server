@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Hooks;
 
 use TYPO3\CMS\Core\Localization\Locales;
@@ -17,14 +18,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *
  ***/
 
-/**
- * LocaleItemsProcFunc
- */
 final class LocaleItemsProcFunc
 {
     public const CALLBACK = self::class . '->getItems';
 
-    public function getItems(array &$configuration)
+    public function getItems(array &$configuration): void
     {
         $locales = GeneralUtility::makeInstance(Locales::class);
         $languages = $locales->getLanguages();

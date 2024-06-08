@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Hooks;
 
 /***
@@ -14,14 +15,11 @@ namespace R3H6\OidcServer\Hooks;
  *
  ***/
 
-/**
- * ZoneinfoItemsProcFunc
- */
 final class ZoneinfoItemsProcFunc
 {
     public const CALLBACK = self::class . '->getItems';
 
-    public function getItems(array &$configuration)
+    public function getItems(array &$configuration): void
     {
         foreach (\DateTimeZone::listIdentifiers() as $label) {
             $configuration['items'][] = [$label, $label];

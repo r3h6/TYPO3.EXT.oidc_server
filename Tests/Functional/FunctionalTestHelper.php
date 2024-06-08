@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Functional;
 
 use League\OAuth2\Server\CryptKey;
@@ -43,7 +44,7 @@ trait FunctionalTestHelper
             ]);
         } else {
             foreach ($params as $key => $value) {
-                if (\strpos($key, 'HTTP_') === 0) {
+                if (str_starts_with($key, 'HTTP_')) {
                     $globalSettings = array_merge_recursive($globalSettings, [
                         '_SERVER' => [strtoupper($key) => $value],
                     ]);
@@ -83,7 +84,7 @@ trait FunctionalTestHelper
     protected function createAccessToken(array $scopes = [], $userIdentifier = 1, ClientEntityInterface $client = null): AccessTokenEntityInterface
     {
         $length = 40;
-        $client = $client ?? $this->createClientStub();
+        $client ??= $this->createClientStub();
         $privateKey = new CryptKey(GeneralUtility::getFileAbsFileName('EXT:oauth2_server/Resources/Private/Keys/private.key'));
         $accessTokenRepository = GeneralUtility::makeInstance(AccessTokenRepository::class);
         $accessToken = $accessTokenRepository->getNewToken($client, $scopes, $userIdentifier);

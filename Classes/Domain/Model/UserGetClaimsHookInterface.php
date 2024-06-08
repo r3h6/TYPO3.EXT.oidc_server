@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Domain\Model;
 
 /***
@@ -14,10 +15,7 @@ namespace R3H6\OidcServer\Domain\Model;
  *
  ***/
 
-/**
- * UserGetClaimsHookInterface
- */
 interface UserGetClaimsHookInterface
 {
-    public function modifyClaims(&$claims, User $user);
+    public function modifyClaims(array &$claims, User $user): void;
 }

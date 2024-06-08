@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Functional;
 
 /***
@@ -24,7 +25,7 @@ class AuthorizationCodeGrantTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function issuesIdToken()
+    public function issuesIdToken(): void
     {
         self::markTestSkipped('Needs to be reworked');
 

@@ -1,0 +1,19 @@
+base: 'https://typo3-oidc-server.ddev.site/'
+errorHandling: {  }
+languages:
+  -
+    title: English
+    enabled: true
+    languageId: 0
+    base: /
+    locale: en_US.UTF-8
+    navigationTitle: English
+    flag: us
+rootPageId: 1
+routes: {  }
+oauth2:
+  loginPageUid: 1
+  consentPageUid: 4
+
+imports:
+  - { resource: "EXT:oidc_server/Configuration/Site/Config.yaml" }

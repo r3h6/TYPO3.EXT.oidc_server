@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
 use Psr\Log\LoggerInterface;
@@ -8,6 +9,7 @@ use R3H6\OidcServer\Domain\Model\User;
 use R3H6\OidcServer\Hooks\RoleClaimHook;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /***
  *
@@ -23,12 +25,12 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 /**
  * RoleClaimHookTest
  */
-class RoleClaimHookTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class RoleClaimHookTest extends UnitTestCase
 {
     /**
      * @test
      */
-    public function getClaimsContainsRoles()
+    public function getClaimsContainsRoles(): void
     {
         $groups = new ObjectStorage();
 

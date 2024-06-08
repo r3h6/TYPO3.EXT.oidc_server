@@ -1,7 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Functional;
+
+use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***
  *
@@ -13,7 +17,6 @@ namespace R3H6\OidcServer\Tests\Functional;
  *  (c) 2020
  *
  ***/
-
 /**
  * PromptNoneTest
  */
@@ -24,9 +27,9 @@ class PromptNoneTest extends FunctionalTestCase
     /**
      * @test
      */
-    public function promptNoneReturnsErrorIfNotAuthenticated()
+    public function promptNoneReturnsErrorIfNotAuthenticated(): void
     {
-        if (version_compare(TYPO3_version, '11.5', '>=')) {
+        if (version_compare(GeneralUtility::makeInstance(Typo3Version::class)->getVersion(), '11.5', '>=')) {
             self::markTestSkipped('Needs to be reworked');
         }
 

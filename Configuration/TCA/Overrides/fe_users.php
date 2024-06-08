@@ -1,8 +1,13 @@
 <?php
-defined('TYPO3_MODE') || die();
+
+use R3H6\OidcServer\Hooks\LocaleItemsProcFunc;
+use R3H6\OidcServer\Hooks\ZoneinfoItemsProcFunc;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+defined('TYPO3') || die();
 
 $GLOBALS['TCA']['fe_users']['types']['Tx_OidcServer_User'] = $GLOBALS['TCA']['fe_users']['types']['0'];
-$GLOBALS['TCA']['fe_users']['columns'][$GLOBALS['TCA']['fe_users']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_OidcServer_User','Tx_OidcServer_User'];
+$GLOBALS['TCA']['fe_users']['columns'][$GLOBALS['TCA']['fe_users']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_OidcServer_User', 'Tx_OidcServer_User'];
 
 $tmp_oidc_server_columns = [
 
@@ -17,7 +22,7 @@ $tmp_oidc_server_columns = [
         'config' => [
             'type' => 'input',
             'size' => 30,
-            'eval' => 'trim'
+            'eval' => 'trim',
         ],
     ],
     'tx_oidcserver_gender' => [
@@ -27,8 +32,8 @@ $tmp_oidc_server_columns = [
             'type' => 'select',
             'renderType' => 'selectSingle',
             'items' => [
-                ['LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_oidcserver_gender.male', 'male'],
-                ['LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_oidcserver_gender.female', 'female'],
+                ['label' => 'LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_oidcserver_gender.male', 'value' => 'male'],
+                ['label' => 'LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_oidcserver_gender.female', 'value' => 'female'],
             ],
         ],
     ],
@@ -37,11 +42,10 @@ $tmp_oidc_server_columns = [
         'label' => 'LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_oidcserver_birthdate',
         'config' => [
             'dbType' => 'date',
-            'type' => 'input',
-            'renderType' => 'inputDateTime',
+            'type' => 'datetime',
             'size' => 7,
-            'eval' => 'date',
             'default' => null,
+            'format' => 'date',
         ],
     ],
     'tx_oidcserver_locale' => [
@@ -51,9 +55,9 @@ $tmp_oidc_server_columns = [
             'type' => 'select',
             'renderType' => 'selectSingle',
             'items' => [
-                ['', ''],
+                ['label' => '', 'value' => ''],
             ],
-            'itemsProcFunc' => \R3H6\OidcServer\Hooks\LocaleItemsProcFunc::CALLBACK,
+            'itemsProcFunc' => LocaleItemsProcFunc::CALLBACK,
         ],
     ],
     'tx_oidcserver_zoneinfo' => [
@@ -63,15 +67,15 @@ $tmp_oidc_server_columns = [
             'type' => 'select',
             'renderType' => 'selectSingle',
             'items' => [
-                ['', ''],
+                ['label' => '', 'value' => ''],
             ],
-            'itemsProcFunc' => \R3H6\OidcServer\Hooks\ZoneinfoItemsProcFunc::CALLBACK,
+            'itemsProcFunc' => ZoneinfoItemsProcFunc::CALLBACK,
         ],
     ],
 
 ];
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('fe_users',$tmp_oidc_server_columns);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_oidcserver_nickname', 'Tx_OidcServer_User', 'after:name');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_oidcserver_gender', 'Tx_OidcServer_User', 'before:name');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_oidcserver_birthdate, tx_oidcserver_locale, tx_oidcserver_zoneinfo', 'Tx_OidcServer_User', 'after:image');
+ExtensionManagementUtility::addTCAcolumns('fe_users', $tmp_oidc_server_columns);
+ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_oidcserver_nickname', 'Tx_OidcServer_User', 'after:name');
+ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_oidcserver_gender', 'Tx_OidcServer_User', 'before:name');
+ExtensionManagementUtility::addToAllTCAtypes('fe_users', 'tx_oidcserver_birthdate, tx_oidcserver_locale, tx_oidcserver_zoneinfo', 'Tx_OidcServer_User', 'after:image');

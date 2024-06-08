@@ -1,12 +1,13 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Domain\Model;
 
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use OpenIDConnectServer\Entities\ClaimSetInterface;
+use R3H6\Oauth2Server\Domain\Model\FrontendUser;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***
@@ -20,59 +21,21 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  ***/
 
-/**
- * User
- */
 class User extends FrontendUser implements UserEntityInterface, ClaimSetInterface
 {
-    /**
-     * tstamp
-     *
-     * @var int
-     */
-    protected $tstamp;
-
-    /**
-     * nickname
-     *
-     * @var string
-     */
-    protected $nickname = '';
-
-    /**
-     * gender
-     *
-     * @var string
-     */
-    protected $gender = '';
-
-    /**
-     * birthdate
-     *
-     * @var \DateTime
-     */
-    protected $birthdate;
-
-    /**
-     * locale
-     *
-     * @var string
-     */
-    protected $locale = '';
-
-    /**
-     * zoneinfo
-     *
-     * @var string
-     */
-    protected $zoneinfo = '';
+    protected int $tstamp = 0;
+    protected string $nickname = '';
+    protected string $gender = '';
+    protected ?\DateTime $birthdate = null;
+    protected string $locale = '';
+    protected string $zoneinfo = '';
 
     public function getIdentifier()
     {
         return $this->uid;
     }
 
-    public function getClaims()
+    public function getClaims(): array
     {
         $claims = [
             // profile
@@ -88,7 +51,7 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'nickname' => $this->nickname,
             'preferred_username' => $this->username,
             'profile' => '',
-            'picture' => call_user_func(function (ObjectStorage $images) {
+            'picture' => call_user_func(function (ObjectStorage $images): string {
                 foreach ($images as $image) {
                     return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
                 }
@@ -96,7 +59,7 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             }, $this->image),
             'website' => $this->www,
             'gender' => $this->gender,
-            'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : '0000', // @phpstan-ignore-line
+            'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : null,
             'zoneinfo' => $this->zoneinfo,
             'locale' => $this->locale,
             'updated_at' => $this->tstamp,
@@ -125,82 +88,42 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
         return $claims;
     }
 
-    /**
-     * Returns the nickname
-     *
-     * @return string $nickname
-     */
-    public function getNickname()
+    public function getNickname(): string
     {
         return $this->nickname;
     }
 
-    /**
-     * Sets the nickname
-     *
-     * @param string $nickname
-     */
-    public function setNickname($nickname)
+    public function setNickname(string $nickname): void
     {
         $this->nickname = $nickname;
     }
 
-    /**
-     * Returns the gender
-     *
-     * @return string $gender
-     */
-    public function getGender()
+    public function getGender(): string
     {
         return $this->gender;
     }
 
-    /**
-     * Sets the gender
-     *
-     * @param string $gender
-     */
-    public function setGender($gender)
+    public function setGender(string $gender): void
     {
         $this->gender = $gender;
     }
 
-    /**
-     * Returns the birthdate
-     *
-     * @return \DateTime $birthdate
-     */
-    public function getBirthdate()
+    public function getBirthdate(): ?\DateTime
     {
         return $this->birthdate;
     }
 
-    /**
-     * Sets the birthdate
-     *
-     * @param \DateTime $birthdate
-     */
-    public function setBirthdate(\DateTime $birthdate)
+    public function setBirthdate(?\DateTime $birthdate): void
     {
         $this->birthdate = $birthdate;
     }
 
-    /**
-     * Returns the locale
-     *
-     * @return string $locale
-     */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * Sets the locale
-     *
-     * @param string $locale
-     */
-    public function setLocale($locale)
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }

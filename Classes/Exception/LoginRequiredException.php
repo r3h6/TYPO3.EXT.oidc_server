@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Exception;
 
 use League\OAuth2\Server\Exception\OAuthServerException;

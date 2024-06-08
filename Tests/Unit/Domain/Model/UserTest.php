@@ -1,12 +1,15 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
+use R3H6\OidcServer\Domain\Model\User;
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /***
  *
@@ -22,23 +25,23 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 /**
  * UserTest
  */
-class UserTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class UserTest extends UnitTestCase
 {
     /**
-     * @var \R3H6\OidcServer\Domain\Model\User
+     * @var User
      */
     protected $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new \R3H6\OidcServer\Domain\Model\User();
+        $this->subject = new User();
     }
 
     /**
      * @test
      */
-    public function getClaimsContainsPicture()
+    public function getClaimsContainsPicture(): void
     {
         // $GLOBALS['_SERVER']['REQUEST_URI'] = 'http://localhost/oauth/userinfo';
         GeneralUtility::setIndpEnv('TYPO3_REQUEST_HOST', 'http://localhost');
