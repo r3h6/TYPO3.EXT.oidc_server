@@ -1,65 +1,18 @@
 {
-	"repositories": [
-		{ "type": "path", "url": "packages/*" },
-		{ "type": "composer", "url": "https://composer.typo3.org/" }
-	],
-    "name": "r3h6/oidc-server",
-    "type": "typo3-cms-extension",
-    "description": "OpenID Connect Server.",
-	"license":  [
+	"name": "r3h6/oidc-server",
+	"description": "OpenID Connect Server.",
+	"license": [
 		"GPL-2.0-or-later"
 	],
+	"type": "typo3-cms-extension",
 	"authors": [],
-	"config": {
-		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin",
-        "allow-plugins": {
-            "typo3/cms-composer-installers": true,
-            "typo3/class-alias-loader": true
-        }
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-    "require": {
-		"typo3/cms-core": "^12.4",
+	"require": {
 		"r3h6/oauth2-server": "@dev",
-		"steverhoades/oauth2-openid-connect-server": "^2.6"
-    },
-    "autoload": {
-        "psr-4": {
-            "R3H6\\OidcServer\\": "Classes"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-			"R3H6\\OidcServer\\Tests\\": "Tests"
-        }
-    },
-    "replace": {
-        "typo3-ter/oidc-server": "self.version"
-	},
-	"scripts": {
-		"post-autoload-dump": [
-			"typo3 extension:setup",
-			"TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-		],
-		"ci:php:cs": "php-cs-fixer fix -v --dry-run --using-cache no --diff",
-		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
-		"ci:php:stan": "phpstan --no-progress",
-		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
-		"ci:libs:pack": "phar-composer build softcreatr/jsonpath Resources/Private/Php/jsonpath.phar",
-		"fix:php:cs": "php-cs-fixer fix",
-		"test:rector": "rector process --dry-run",
-		"fix:rector": "rector process",
-		"ci:typo3:scan": "typo3scan scan Classes/ -i strong"
-	},
-	"extra": {
-		"typo3/cms": {
-			"extension-key": "oidc_server",
-			"web-dir": ".Build/public"
-		}
+		"steverhoades/oauth2-openid-connect-server": "^2.6",
+		"typo3/cms-core": "^12.4"
 	},
 	"require-dev": {
+		"ergebnis/composer-normalize": "^2.42",
 		"michielroos/typo3scan": "^1.7",
 		"phpmd/phpmd": "^2.15",
 		"phpspec/prophecy": "^1.19",
@@ -72,5 +25,61 @@
 		"typo3/cms-tstemplate": "^12.4",
 		"typo3/coding-standards": "^0.7",
 		"typo3/testing-framework": "^8.0"
+	},
+	"replace": {
+		"typo3-ter/oidc-server": "self.version"
+	},
+	"repositories": [
+		{
+			"type": "path",
+			"url": "packages/*"
+		},
+		{
+			"type": "composer",
+			"url": "https://composer.typo3.org/"
+		}
+	],
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"R3H6\\OidcServer\\": "Classes"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"R3H6\\OidcServer\\Tests\\": "Tests"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"ergebnis/composer-normalize": true,
+			"typo3/class-alias-loader": true,
+			"typo3/cms-composer-installers": true
+		},
+		"bin-dir": ".Build/bin",
+		"lock": false,
+		"vendor-dir": ".Build/vendor"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "oidc_server",
+			"web-dir": ".Build/public"
+		}
+	},
+	"scripts": {
+		"post-autoload-dump": [
+			"typo3 extension:setup"
+		],
+		"ci:libs:pack": "phar-composer build softcreatr/jsonpath Resources/Private/Php/jsonpath.phar",
+		"ci:php:cs": "php-cs-fixer fix -v --dry-run --using-cache no --diff",
+		"ci:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+		"ci:php:stan": "phpstan --no-progress",
+		"ci:test:unit": "phpunit -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/",
+		"ci:typo3:scan": "typo3scan scan Classes/ -i strong",
+		"fix:composer:normalize": "@composer normalize --no-check-lock",
+		"fix:php:cs": "php-cs-fixer fix",
+		"fix:rector": "rector process",
+		"test:rector": "rector process --dry-run"
 	}
 }

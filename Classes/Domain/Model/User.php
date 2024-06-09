@@ -6,7 +6,9 @@ namespace R3H6\OidcServer\Domain\Model;
 
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use OpenIDConnectServer\Entities\ClaimSetInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use R3H6\Oauth2Server\Domain\Model\FrontendUser;
+use R3H6\OidcServer\Event\ModifyUserClaimsEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
@@ -77,15 +79,11 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             ])),
         ];
 
-        $hooks = (array)($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims'] ?? []);
-        foreach ($hooks as $classRef) {
-            if (is_a($classRef, UserGetClaimsHookInterface::class, true)) {
-                $hook = GeneralUtility::makeInstance($classRef);
-                $hook->modifyClaims($claims, $this);
-            }
-        }
+        $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+        $event = new ModifyUserClaimsEvent($claims, $this);
+        $eventDispatcher->dispatch($event);
 
-        return $claims;
+        return $event->getClaims();
     }
 
     public function getNickname(): string

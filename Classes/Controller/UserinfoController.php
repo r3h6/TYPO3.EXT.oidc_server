@@ -39,6 +39,10 @@ class UserinfoController
         $claims = $this->claimExtractor->extract($scopes, $userEntity->getClaims());
         $claims['sub'] = $userEntity->getIdentifier();
 
+        $claims = array_filter($claims, static function ($value) {
+            return $value !== null && $value !== '';
+        });
+
         return new JsonResponse($claims);
     }
 }

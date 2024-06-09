@@ -39,3 +39,7 @@ services:
     tags:
       - name: event.listener
 
+  R3H6\OidcServer\EventListener\AddRolesClaim:
+    tags:
+      - name: event.listener
+
