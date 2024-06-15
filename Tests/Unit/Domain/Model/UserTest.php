@@ -22,15 +22,9 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  *
  ***/
 
-/**
- * UserTest
- */
 class UserTest extends UnitTestCase
 {
-    /**
-     * @var User
-     */
-    protected $subject;
+    protected User $subject;
 
     protected function setUp(): void
     {
@@ -43,16 +37,15 @@ class UserTest extends UnitTestCase
      */
     public function getClaimsContainsPicture(): void
     {
-        // $GLOBALS['_SERVER']['REQUEST_URI'] = 'http://localhost/oauth/userinfo';
-        GeneralUtility::setIndpEnv('TYPO3_REQUEST_HOST', 'http://localhost');
-
-        $resource = $this->prophesize(FileInterface::class);
-        $resource->getPublicUrl()->willReturn('fileadmin/user_upload/profile.jpg');
-        $image = $this->prophesize(FileReference::class);
-        $image->getOriginalResource()->willReturn($resource->reveal());
-        $images = new ObjectStorage();
-        $images->attach($image->reveal());
-        $this->subject->setImage($images);
+        $this->subject->setImage($this->createMock(ObjectStorage::class)
+            ->attach($this->createMock(FileReference::class)
+                ->method('getOriginalResource')
+                ->willReturn($this->createMock(FileInterface::class)
+                    ->method('getPublicUrl')
+                    ->willReturn('fileadmin/user_upload/profile.jpg')
+                )
+            )
+        );
 
         $claims = $this->subject->getClaims();
         self::assertIsArray($claims);

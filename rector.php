@@ -29,7 +29,7 @@ return RectorConfig::configure()
         __DIR__ . '/Configuration',
         __DIR__ . '/Tests',
         __DIR__ . '/ext_emconf.php',
-        __DIR__ . '/ext_localconf.php',
+        // __DIR__ . '/ext_localconf.php',
     ])
     // uncomment to reach your current PHP version
     // ->withPhpSets(php81: true)
@@ -68,7 +68,7 @@ return RectorConfig::configure()
         // @see https://github.com/sabbelasichon/typo3-rector/issues/2536
         __DIR__ . '/**/Configuration/ExtensionBuilder/*',
         NameImportingPostRector::class => [
-            'ext_localconf.php', // This line can be removed since TYPO3 11.4, see https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Important-94280-MoveContentsOfExtPhpIntoLocalScopes.html
+            // 'ext_localconf.php', // This line can be removed since TYPO3 11.4, see https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/11.4/Important-94280-MoveContentsOfExtPhpIntoLocalScopes.html
             'ClassAliasMap.php',
         ],
     ])

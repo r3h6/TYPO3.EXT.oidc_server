@@ -22,6 +22,9 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
  *
  ***/
 
+ /**
+  * @extends \TYPO3\CMS\Extbase\Persistence\Repository<\R3H6\OidcServer\Domain\Model\User>
+  */
 final class UserRepository extends Repository implements IdentityProviderInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
@@ -34,13 +37,13 @@ final class UserRepository extends Repository implements IdentityProviderInterfa
         $this->setDefaultQuerySettings($querySettings);
     }
 
+    /**
+     * @param null|int|string $identifier
+     * @return \R3H6\OidcServer\Domain\Model\User|null
+     */
     public function getUserEntityByIdentifier($identifier)
     {
         $this->logger->debug('Get user', ['identifier' => $identifier]);
-        $this->initializeObject();
-
-        $user = $this->findByUid($identifier);
-
-        return $user;
+        return $this->findByIdentifier((int)$identifier);
     }
 }

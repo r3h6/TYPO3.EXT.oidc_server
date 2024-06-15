@@ -35,13 +35,11 @@ class UserinfoController
             throw new \RuntimeException('User not found', 1717704496933);
         }
 
-        $scopes = $request->getAttribute('oauth_scopes');
+        $scopes = (array) $request->getAttribute('oauth_scopes');
         $claims = $this->claimExtractor->extract($scopes, $userEntity->getClaims());
         $claims['sub'] = $userEntity->getIdentifier();
 
-        $claims = array_filter($claims, static function ($value) {
-            return $value !== null && $value !== '';
-        });
+        $claims = array_filter($claims, static fn($value): bool => $value !== null && $value !== '');
 
         return new JsonResponse($claims);
     }

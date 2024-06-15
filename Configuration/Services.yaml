@@ -23,6 +23,10 @@ services:
       $identityProvider: '@R3H6\OidcServer\Domain\Repository\UserRepository'
       $claimExtractor: '@OpenIDConnectServer\ClaimExtractor'
 
+  R3H6\OidcServer\Domain\Repository\UserRepository:
+    calls:
+      - method: initializeObject
+
   R3H6\OidcServer\EventListener\SetIdTokenResponseOnAuthorizationServer:
     tags:
       - name: event.listener

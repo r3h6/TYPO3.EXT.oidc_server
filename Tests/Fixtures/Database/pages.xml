@@ -3,7 +3,23 @@
     <pages>
         <uid>1</uid>
         <pid>0</pid>
-        <title>Test Oauth2 Server</title>
+        <title>Login</title>
+    </pages>
+    <pages>
+        <uid>2</uid>
+        <pid>1</pid>
+        <title>Consent</title>
+    </pages>
+    <pages>
+        <uid>3</uid>
+        <pid>1</pid>
+        <title>Users</title>
+    </pages>
+    <pages>
+        <uid>4</uid>
+        <pid>1</pid>
+        <title>Clients</title>
+        <d
     </pages>
     <tx_oauth2server_domain_model_client>
         <uid>1</uid>
