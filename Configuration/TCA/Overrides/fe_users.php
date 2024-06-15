@@ -7,7 +7,10 @@ use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 defined('TYPO3') || die();
 
 $GLOBALS['TCA']['fe_users']['types']['Tx_OidcServer_User'] = $GLOBALS['TCA']['fe_users']['types']['0'];
-$GLOBALS['TCA']['fe_users']['columns'][$GLOBALS['TCA']['fe_users']['ctrl']['type']]['config']['items'][] = ['LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_OidcServer_User', 'Tx_OidcServer_User'];
+$GLOBALS['TCA']['fe_users']['columns'][$GLOBALS['TCA']['fe_users']['ctrl']['type']]['config']['items'][] = [
+    'label' => 'LLL:EXT:oidc_server/Resources/Private/Language/locallang_db.xlf:fe_users.tx_extbase_type.Tx_OidcServer_User',
+    'value' => 'Tx_OidcServer_User',
+];
 
 $tmp_oidc_server_columns = [
 

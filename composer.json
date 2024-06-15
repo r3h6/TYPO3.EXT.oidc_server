@@ -10,7 +10,7 @@
 		"php": "~8.1.0 || ~8.2.0 || ~8.3.0",
 		"r3h6/oauth2-server": "2.0.x@dev",
 		"steverhoades/oauth2-openid-connect-server": "^2.6",
-		"typo3/cms-core": "^12.4"
+		"typo3/cms-core": "^12.4 || ^13.1"
 	},
 	"require-dev": {
 		"ergebnis/composer-normalize": "^2.42",
@@ -26,8 +26,7 @@
 		"typo3/cms-reports": "^12.4 || ^13.1",
 		"typo3/cms-tstemplate": "^12.4 || ^13.1",
 		"typo3/coding-standards": "^0.7 || ^0.8",
-		"typo3/testing-framework": "^8.0",
-		"ssch/typo3-rector": "^2.6"
+		"typo3/testing-framework": "^8.0"
 	},
 	"replace": {
 		"typo3-ter/oidc-server": "self.version"
@@ -71,6 +70,10 @@
 		}
 	},
 	"scripts": {
+		"post-autoload-dump": [
+			"chmod 600 .Build/vendor/r3h6/oauth2-server/Resources/Private/Keys/private.key",
+			"chmod 600 .Build/vendor/r3h6/oauth2-server/Resources/Private/Keys/public.key"
+		],
 		"ci:coverage": [
 			"@ci:coverage:unit",
 			"@ci:coverage:functional",

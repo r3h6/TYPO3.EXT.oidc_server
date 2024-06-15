@@ -10,6 +10,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use R3H6\Oauth2Server\Domain\Model\FrontendUser;
 use R3H6\OidcServer\Event\ModifyUserClaimsEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***
@@ -55,7 +56,8 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'profile' => '',
             'picture' => call_user_func(function (ObjectStorage $images): string {
                 foreach ($images as $image) {
-                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
+                    assert($image instanceof FileReference);
+                    return rtrim((string)GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'), '/') . '/' . ltrim((string)$image->getOriginalResource()->getPublicUrl(), '/');
                 }
                 return '';
             }, $this->image),

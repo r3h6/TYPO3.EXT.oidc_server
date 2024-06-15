@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
+use Psr\EventDispatcher\EventDispatcherInterface;
 use R3H6\OidcServer\Domain\Model\User;
-use TYPO3\CMS\Core\Resource\FileInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -36,18 +37,21 @@ class UserTest extends UnitTestCase
      */
     public function getClaimsContainsPicture(): void
     {
-        $this->subject->setImage(
-            $this->createMock(ObjectStorage::class)
-            ->attach(
-                $this->createMock(FileReference::class)
-                ->method('getOriginalResource')
-                ->willReturn(
-                    $this->createMock(FileInterface::class)
-                    ->method('getPublicUrl')
-                    ->willReturn('fileadmin/user_upload/profile.jpg')
-                )
-            )
-        );
+        GeneralUtility::setIndpEnv('TYPO3_REQUEST_HOST', 'http://localhost');
+
+        $file = $this->createMock(\TYPO3\CMS\Core\Resource\FileReference::class);
+        $file->method('getPublicUrl')->willReturn('/fileadmin/user_upload/profile.jpg');
+
+        $fileReference = $this->createMock(FileReference::class);
+        $fileReference->method('getOriginalResource')->willReturn($file);
+
+        $images = new ObjectStorage();
+        $images->attach($fileReference);
+
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        GeneralUtility::addInstance(EventDispatcherInterface::class, $eventDispatcher);
+
+        $this->subject->setImage($images);
 
         $claims = $this->subject->getClaims();
         self::assertIsArray($claims);
