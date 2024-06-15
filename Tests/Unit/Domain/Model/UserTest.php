@@ -6,7 +6,6 @@ namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
 use R3H6\OidcServer\Domain\Model\User;
 use TYPO3\CMS\Core\Resource\FileInterface;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -37,10 +36,13 @@ class UserTest extends UnitTestCase
      */
     public function getClaimsContainsPicture(): void
     {
-        $this->subject->setImage($this->createMock(ObjectStorage::class)
-            ->attach($this->createMock(FileReference::class)
+        $this->subject->setImage(
+            $this->createMock(ObjectStorage::class)
+            ->attach(
+                $this->createMock(FileReference::class)
                 ->method('getOriginalResource')
-                ->willReturn($this->createMock(FileInterface::class)
+                ->willReturn(
+                    $this->createMock(FileInterface::class)
                     ->method('getPublicUrl')
                     ->willReturn('fileadmin/user_upload/profile.jpg')
                 )
