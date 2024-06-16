@@ -53,7 +53,6 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'middle_name' => $this->middleName,
             'nickname' => $this->nickname,
             'preferred_username' => $this->username,
-            'profile' => '',
             'picture' => call_user_func(function (ObjectStorage $images): string {
                 foreach ($images as $image) {
                     assert($image instanceof FileReference);
@@ -74,11 +73,17 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'phone_number' => $this->telephone,
             'phone_number_verified' => true,
             // address
-            'address' => implode(', ', array_filter([
-                trim($this->address),
-                trim($this->zip . ' ' . $this->city),
-                trim($this->country),
-            ])),
+            'address' => [
+                'formatted' => implode(', ', array_filter([
+                    trim($this->address),
+                    trim($this->zip . ' ' . $this->city),
+                    trim($this->country),
+                ])),
+                'street_address' => $this->address,
+                'locality' => $this->city,
+                'postal_code' => $this->zip,
+                'country' => $this->country,
+            ],
         ];
 
         $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
