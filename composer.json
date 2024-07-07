@@ -1,6 +1,6 @@
 {
 	"name": "r3h6/oidc-server",
-	"description": "OpenID Connect Server.",
+	"description": "OpenID Connect server for TYPO3.",
 	"license": [
 		"GPL-2.0-or-later"
 	],

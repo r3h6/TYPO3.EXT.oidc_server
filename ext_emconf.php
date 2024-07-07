@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'OIDC Server',
-    'description' => 'OpenID Connect Server.',
+    'description' => 'OpenID Connect server for TYPO3.',
     'category' => 'services',
     'author' => '',
     'author_email' => '',

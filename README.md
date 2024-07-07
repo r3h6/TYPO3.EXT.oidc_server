@@ -1,51 +1,10 @@
-# EXT:oidc_server
+# TYPO3 OIDC Server
 
 OpenID Connect server for TYPO3 based on [OAuth 2.0 OpenID Connect Server](https://github.com/steverhoades/oauth2-openid-connect-server).
 
+- [TER](https://extensions.typo3.org/extension/oidc_server)
 
-## Installation
-
-**Only composer supported!**
-
-```bash
-$ composer require r3h6/oidc-server
-```
-
-
-## Integration
-
-Import in your site configuration:
-```yaml
-imports:
-  - { resource: "EXT:oidc_server/Configuration/Site/Config.yaml" }
-```
-
-
-## Configuration
-
-```yaml
-
-oauth2:
-  # Enable oidc support
-  oidc: true
-
-  # Define custom claim sets
-  claimSets:
-    # Scope
-    role:
-      # Claims (see hooks)
-      - Roles
-
-```
-
-
-## Hooks
-
-<dl>
-    <dt>Location</dt>
-    <dd>R3H6\OidcServer\Domain\Model\User::getClaims</dd>
-    <dt>Register</dt>
-    <dd>$GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims']</dd>
-    <dt>Interface</dt>
-    <dd>R3H6\OidcServer\Domain\Model\UserGetClaimsHookInterface</dd>
-</dl>
+| Version | TYPO3 compatibility |
+| --- | --- |
+| v2.* | 12.4 – 13.* |
+| v1.* | 10.4 – 11.5 |
