@@ -1,9 +1,8 @@
 <?php
-
 return [
     'BE' => [
         'debug' => true,
-        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$dzFyVDFDN0kxNW9iOXM5dQ$/rjPzHH68fSni4OuUgdInx2MWUm/C0XgR3Yy5bDnJLw',
+        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$QXc5L2R2V3Njcm9ESFdJWA$EWMmMRkW9JF29/Y7DR2T/j2fE4WwGQ1W4Brf66NLWkU',
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
             'options' => [],
@@ -83,7 +82,7 @@ return [
     ],
     'MAIL' => [
         'transport' => 'sendmail',
-        'transport_sendmail_command' => '/usr/local/bin/mailhog sendmail test@example.org --smtp-addr 127.0.0.1:1025',
+        'transport_sendmail_command' => '/usr/local/bin/mailpit sendmail -t --smtp-addr 127.0.0.1:1025',
         'transport_smtp_encrypt' => '',
         'transport_smtp_password' => '',
         'transport_smtp_server' => '',
@@ -122,7 +121,6 @@ return [
         'exceptionalErrors' => 12290,
         'features' => [
             'security.backend.enforceContentSecurityPolicy' => true,
-            'security.usePasswordPolicyForFrontendUsers' => true,
         ],
         'sitename' => 'TYPO3 OAuth2 Server',
         'systemMaintainers' => [

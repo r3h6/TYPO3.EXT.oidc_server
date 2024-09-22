@@ -35,15 +35,20 @@ if (getenv('IS_DDEV_PROJECT') == 'true') {
                 'devIPmask' => '*',
                 'displayErrors' => 1,
             ],
-            'LOG' => [
-                'R3H6' => [
-                    'writerConfiguration' => [
-                        \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
-                            \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [],
-                        ],
-                    ],
-                ],
-            ],
+            // 'LOG' => [
+            //     'R3H6' => [
+            //         'writerConfiguration' => [
+            //             \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
+            //                 \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [],
+            //             ],
+            //         ],
+            //         'processorConfiguration' => [
+            //             \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
+            //                 \TYPO3\CMS\Core\Log\Processor\WebProcessor::class => [],
+            //             ],
+            //         ],
+            //     ],
+            // ],
         ],
     );
 }

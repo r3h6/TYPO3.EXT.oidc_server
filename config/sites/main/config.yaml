@@ -14,6 +14,6 @@ routes: {  }
 oauth2:
   loginPageUid: 1
   consentPageUid: 4
-
 imports:
-  - { resource: "EXT:oidc_server/Configuration/Site/Config.yaml" }
+  -
+    resource: 'EXT:oidc_server/Configuration/Site/Config.yaml'
