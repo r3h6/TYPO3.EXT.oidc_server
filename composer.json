@@ -28,7 +28,7 @@
 		"typo3/coding-standards": "^0.7 || ^0.8",
 		"typo3/testing-framework": "^8.0",
 		"cweagans/composer-patches": "^1.7",
-		"typo3/cms-install": "^12.4"
+		"typo3/cms-install": "^12.4 || ^13.1"
 	},
 	"replace": {
 		"typo3-ter/oidc-server": "self.version"
