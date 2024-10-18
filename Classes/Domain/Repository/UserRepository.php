@@ -39,11 +39,14 @@ final class UserRepository extends Repository implements IdentityProviderInterfa
 
     /**
      * @param int|string|null $identifier
-     * @return \R3H6\OidcServer\Domain\Model\User|null
      */
     public function getUserEntityByIdentifier($identifier)
     {
         $this->logger->debug('Get user', ['identifier' => $identifier]);
-        return $this->findByIdentifier((int)$identifier);
+        $userEntity = $this->findByIdentifier((int)$identifier);
+        if ($userEntity === null) {
+            throw new \RuntimeException('User not found', 1729277694139);
+        }
+        return $userEntity;
     }
 }

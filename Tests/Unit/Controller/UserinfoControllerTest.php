@@ -54,8 +54,8 @@ class UserinfoControllerTest extends TestCase
 
         $this->requestMock->method('getAttribute')
             ->willReturnMap([
-                ['oauth_user_id', null, $oauthUserId],
                 ['oauth_scopes', null, $scopes],
+                ['oauth_user_id', null, $oauthUserId],
             ]);
 
         $this->identityProviderMock->expects(self::once())
@@ -75,16 +75,5 @@ class UserinfoControllerTest extends TestCase
 
         self::assertInstanceOf(JsonResponse::class, $response);
         self::assertEquals(json_encode($expectedClaims), (string)$response->getBody());
-    }
-
-    public function testGetClaimsThrowsRuntimeExceptionWhenUserNotFound(): void
-    {
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('User not found');
-
-        $this->requestMock->method('getAttribute')->with('oauth_user_id')->willReturn('nonexistent_user_id');
-        $this->identityProviderMock->method('getUserEntityByIdentifier')->willReturn(null);
-
-        $this->userinfoController->getClaims($this->requestMock);
     }
 }

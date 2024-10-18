@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * #ddev-generated: Automatically generated TYPO3 AdditionalConfiguration.php file.
+ * ddev manages this file and may delete or overwrite the file unless this comment is removed.
+ * It is recommended that you leave this file alone.
+ */
+
 if (getenv('IS_DDEV_PROJECT') == 'true') {
     $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive(
         $GLOBALS['TYPO3_CONF_VARS'],
@@ -22,10 +28,8 @@ if (getenv('IS_DDEV_PROJECT') == 'true') {
                 'processor_path' => '/usr/bin/',
                 'processor_path_lzw' => '/usr/bin/',
             ],
-            // This mail configuration sends all emails to mailhog
+            // This mail configuration sends all emails to mailpit
             'MAIL' => [
-                'defaultMailFromAddress' => 'oidc@localhost',
-                'defaultMailFromName' => 'OIDC',
                 'transport' => 'smtp',
                 'transport_smtp_encrypt' => false,
                 'transport_smtp_server' => 'localhost:1025',
@@ -35,20 +39,6 @@ if (getenv('IS_DDEV_PROJECT') == 'true') {
                 'devIPmask' => '*',
                 'displayErrors' => 1,
             ],
-            // 'LOG' => [
-            //     'R3H6' => [
-            //         'writerConfiguration' => [
-            //             \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
-            //                 \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [],
-            //             ],
-            //         ],
-            //         'processorConfiguration' => [
-            //             \TYPO3\CMS\Core\Log\LogLevel::DEBUG => [
-            //                 \TYPO3\CMS\Core\Log\Processor\WebProcessor::class => [],
-            //             ],
-            //         ],
-            //     ],
-            // ],
-        ],
+        ]
     );
 }

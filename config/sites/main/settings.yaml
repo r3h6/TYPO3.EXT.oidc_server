@@ -1,0 +1,8 @@
+oauth2_server:
+  loginPageUid: 1
+  consentPageUid: 2
+plugin:
+  tx_oauth2server:
+    primaryColor: '#0ed075'
+    backgroundColor: '#d5ccd9'
+    footerText: 'TYPO3 - Inspire people to share2'

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use R3H6\OidcServer\Hooks\LocaleItemsProcFunc;
 use R3H6\OidcServer\Hooks\ZoneinfoItemsProcFunc;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

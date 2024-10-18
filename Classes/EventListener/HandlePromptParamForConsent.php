@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace R3H6\OidcServer\EventListener;
 
 use R3H6\Oauth2Server\Event\ModifyConsentRedirectEvent;
-use R3H6\OidcServer\Exception\ConsentRequiredException;
+use R3H6\OidcServer\Exception\OidcServerException;
 
 /***
  *
@@ -25,7 +25,7 @@ final class HandlePromptParamForConsent
         if ($event->getConfiguration()['oidc'] ?? false) {
             $prompt = $event->getContext()->getRequest()->getQueryParams()['prompt'] ?? null;
             if ($prompt === 'none' && $event->getRequiresConsent()) {
-                throw new ConsentRequiredException();
+                throw OidcServerException::consentRequired();
             }
         }
     }

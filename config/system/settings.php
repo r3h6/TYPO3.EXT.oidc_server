@@ -2,7 +2,7 @@
 return [
     'BE' => [
         'debug' => true,
-        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$QXc5L2R2V3Njcm9ESFdJWA$EWMmMRkW9JF29/Y7DR2T/j2fE4WwGQ1W4Brf66NLWkU',
+        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$aWtscGE0ajR2aGZwcmV6Tg$YSGVG2aq3LPRJBlxZgv8xx1+LqhXOgbzUEJUZh9iwgc',
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
             'options' => [],
@@ -13,14 +13,14 @@ return [
             'Default' => [
                 'charset' => 'utf8mb4',
                 'dbname' => 'db',
+                'defaultTableOptions' => [
+                    'charset' => 'utf8mb4',
+                    'collation' => 'utf8mb4_unicode_ci',
+                ],
                 'driver' => 'mysqli',
                 'host' => 'db',
                 'password' => 'db',
                 'port' => 3306,
-                'tableoptions' => [
-                    'charset' => 'utf8mb4',
-                    'collate' => 'utf8mb4_unicode_ci',
-                ],
                 'user' => 'db',
             ],
         ],
@@ -59,8 +59,6 @@ return [
     ],
     'GFX' => [
         'processor' => 'GraphicsMagick',
-        'processor_allowTemporaryMasksAsPng' => false,
-        'processor_colorspace' => 'RGB',
         'processor_effects' => false,
         'processor_enabled' => true,
         'processor_path' => '/usr/bin/',
@@ -95,12 +93,6 @@ return [
                 'hash' => [
                     'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
                 ],
-                'imagesizes' => [
-                    'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
-                    'options' => [
-                        'compression' => true,
-                    ],
-                ],
                 'pages' => [
                     'backend' => 'TYPO3\\CMS\\Core\\Cache\\Backend\\Typo3DatabaseBackend',
                     'options' => [
@@ -117,12 +109,12 @@ return [
         ],
         'devIPmask' => '*',
         'displayErrors' => 1,
-        'encryptionKey' => 'e901a86f5faa521ac6c4359c281affac7a3fbdb734b85269262248a14fb349399300a3f1286f5bbd227e10933ea90413',
+        'encryptionKey' => '38337bc2dfc016a4737694edc77f75558cc254f422f856977a052440c38863c8d14034a7f1078ef776a613598f9e626d',
         'exceptionalErrors' => 12290,
         'features' => [
-            'security.backend.enforceContentSecurityPolicy' => true,
+            'frontend.cache.autoTagging' => true,
         ],
-        'sitename' => 'TYPO3 OAuth2 Server',
+        'sitename' => 'New TYPO3 site',
         'systemMaintainers' => [
             1,
         ],

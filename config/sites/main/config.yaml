@@ -1,5 +1,6 @@
 base: 'https://typo3-oidc-server.ddev.site/'
-errorHandling: {  }
+dependencies:
+  - oauth2-server/identity-provider
 languages:
   -
     title: English
@@ -10,10 +11,7 @@ languages:
     navigationTitle: English
     flag: us
 rootPageId: 1
-routes: {  }
-oauth2:
-  loginPageUid: 1
-  consentPageUid: 4
+websiteTitle: ''
 imports:
   -
     resource: 'EXT:oidc_server/Configuration/Site/Config.yaml'

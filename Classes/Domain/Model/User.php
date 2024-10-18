@@ -33,9 +33,12 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
     protected string $locale = '';
     protected string $zoneinfo = '';
 
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
-        return $this->uid;
+        if ($this->uid === null) {
+            throw new \RuntimeException('User has no uid', 1729277796223);
+        }
+        return (string)$this->uid;
     }
 
     public function getClaims(): array

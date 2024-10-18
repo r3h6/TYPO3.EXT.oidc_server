@@ -31,9 +31,6 @@ class UserinfoController
     public function getClaims(ServerRequestInterface $request): ResponseInterface
     {
         $userEntity = $this->identityProvider->getUserEntityByIdentifier($request->getAttribute('oauth_user_id'));
-        if ($userEntity === null) {
-            throw new \RuntimeException('User not found', 1717704496933);
-        }
 
         $scopes = (array)$request->getAttribute('oauth_scopes');
         $claims = $this->claimExtractor->extract($scopes, $userEntity->getClaims());

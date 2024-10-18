@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace R3H6\OidcServer\EventListener;
 
 use R3H6\Oauth2Server\Event\ModifyAuthenticationRedirectEvent;
-use R3H6\OidcServer\Exception\LoginRequiredException;
+use R3H6\OidcServer\Exception\OidcServerException;
 
 /***
  *
@@ -25,7 +25,7 @@ final class HandlePromptParamForAuthentication
         if ($event->getConfiguration()['oidc'] ?? false) {
             $prompt = $event->getContext()->getRequest()->getQueryParams()['prompt'] ?? null;
             if ($prompt === 'none' && $event->getRequiresAuthentication()) {
-                throw new LoginRequiredException();
+                throw OidcServerException::loginRequired();
             }
         }
     }
