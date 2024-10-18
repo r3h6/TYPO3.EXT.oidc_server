@@ -20,7 +20,7 @@ Quick configuration
 3.  Set the path to your key files in the extension configuration or in the site configuration
 
     ..  code-block:: yaml
-        # sites/[site]/config.yaml
-        oauth2:
+        # sites/[site]/settings.yaml
+        oauth2_server:
             privateKey: '/path/to/private.key'
             publicKey: '/path/to/public.key'

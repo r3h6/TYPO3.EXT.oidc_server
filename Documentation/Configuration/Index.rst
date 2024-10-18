@@ -14,7 +14,7 @@ Configuration
     :name: oidc-claimSets
     :type: object
     :required: false
-    :Path: Site configuration :yaml:`oauth2.claimSets`
+    :Path: Site settings :yaml:`oauth2_server.claimSets`
 
     Define custom claim sets.
     An example integration is the role claim set of this extension to work with the `EXT:oidc <https://extensions.typo3.org/extension/oidc>`__ together.
