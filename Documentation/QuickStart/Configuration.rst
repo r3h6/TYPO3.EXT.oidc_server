@@ -7,6 +7,18 @@ Quick configuration
 ===================
 
 
+TYPO3 v13
+=========
+
+1.  Create your own `public and private keys<https://oauth2.thephpleague.com/installation/#generating-public-and-private-keys>`__.
+    Change the permissions of the keys to :code:`600` or :code:`660`
+
+2.  Include the site set provided from this extension and configure settings
+
+
+TYPO3 v12
+=========
+
 1.  Create your own `public and private keys<https://oauth2.thephpleague.com/installation/#generating-public-and-private-keys>`__.
     Change the permissions of the keys to :code:`600` or :code:`660`
 

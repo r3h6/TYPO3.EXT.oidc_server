@@ -1,6 +1,8 @@
 base: 'https://typo3-oidc-server.ddev.site/'
 dependencies:
-  - oauth2-server/identity-provider
+  - oidc-server/setup
+  - typo3/fluid-styled-content
+  - typo3/felogin
 languages:
   -
     title: English
@@ -12,6 +14,3 @@ languages:
     flag: us
 rootPageId: 1
 websiteTitle: ''
-imports:
-  -
-    resource: 'EXT:oidc_server/Configuration/Site/Config.yaml'
