@@ -1,0 +1,5 @@
+name: oidc-server/setup
+label: "OIDC Server: Setup"
+dependencies:
+  - oauth2-server/configuration
+  - oauth2-server/template

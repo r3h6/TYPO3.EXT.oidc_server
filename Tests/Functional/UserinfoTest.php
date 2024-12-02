@@ -1,7 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Functional;
+
+use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
+use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequestContext;
 
 /***
  *
@@ -14,55 +18,16 @@ namespace R3H6\OidcServer\Tests\Functional;
  *
  ***/
 
-/**
- * UserinfoTest
- */
-class UserinfoTest extends FunctionalTestCase
+class UserinfoTest extends ApplicationTestCase
 {
-    use FunctionalTestHelper;
-
     /**
      * @test
      */
-    public function clientCredentialsGrant()
+    public function userinfoEndpointReturnsAccessDeniedIfNotAuthenticated(): void
     {
-        if (version_compare(TYPO3_version, '11.5', '>=')) {
-            self::markTestSkipped('Needs to be reworked');
-        }
-
-        $response = $this->doFrontendRequest(
-            'GET',
-            'https://localhost/oauth2/userinfo',
-            [
-                'HTTP_authorization' => 'Bearer ' . $this->createAccessToken([$this->createScopeMock('profile')]),
-            ]
-        );
-
-        $claims = json_decode((string)$response->getBody(), true);
-        self::assertSame(1, $claims['sub']);
-        self::assertSame(1612466634, $claims['updated_at']);
-        // {"name":"Mr. Kasper Sk\u00e5rh\u00f8j","family_name":"Sk\u00e5rh\u00f8j","given_name":"Kasper","middle_name":"","nickname":"","preferred_username":"user","profile":"","picture":"","website":"https://typo3.org","gender":"","birthdate":"","zoneinfo":"","locale":"","updated_at":1612466634,"sub":1}
-        // self::assertSame(' ', (string) $response->getBody());
-    }
-
-    /**
-     * @test
-     */
-    public function scopeRoleReturnsRoleClaim()
-    {
-        if (version_compare(TYPO3_version, '11.5', '>=')) {
-            self::markTestSkipped('Needs to be reworked');
-        }
-
-        $response = $this->doFrontendRequest(
-            'GET',
-            'https://localhost/oauth2/userinfo',
-            [
-                'HTTP_authorization' => 'Bearer ' . $this->createAccessToken([$this->createScopeMock('role')]),
-            ]
-        );
-
-        $claims = json_decode((string)$response->getBody(), true);
-        self::assertSame('Oauth2, Oauth2', $claims['Roles']);
+        $request = new InternalRequest('https://localhost/oauth2/userinfo');
+        $context = new InternalRequestContext();
+        $response = $this->executeFrontendSubRequest($request, $context);
+        self::assertSame(401, $response->getStatusCode());
     }
 }

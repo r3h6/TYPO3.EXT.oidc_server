@@ -1,12 +1,15 @@
 includes:
-    - .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
+	- .Build/vendor/saschaegerer/phpstan-typo3/extension.neon
 
 parameters:
-    level: 5
-    paths:
-        - Classes/
-
-    typo3:
-        requestGetAttributeMapping:
-            oauth_scopes: array
-            oauth_user_id: int
+	level: 8
+	ignoreErrors:
+		- identifier: missingType.iterableValue
+		- '#Cannot call method [a-z]+\(\) on Psr\\Log\\LoggerInterface\|null#'
+	paths:
+	- Classes/
+	- Tests/
+	typo3:
+		requestGetAttributeMapping:
+			oauth_scopes: array
+			oauth_user_id: int

@@ -1,14 +1,5 @@
 oauth2:
-
   oidc: true
-
-  endpoints:
-    oauth2_authorize:
-      target: R3H6\OidcServer\Controller\AuthorizationController::startAuthorization
-    oidc_userinfo:
-      path: /userinfo
-      methods: GET
-      target: R3H6\OidcServer\Controller\UserinfoController::getClaims
 
   scopes:
     - { identifier: 'profile', description: 'LLL:EXT:oidc_server/Resources/Private/Language/locallang.xlf:scope_profile' }

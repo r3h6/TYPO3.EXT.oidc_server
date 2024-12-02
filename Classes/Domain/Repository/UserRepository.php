@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Domain\Repository;
 
 use OpenIDConnectServer\Repositories\IdentityProviderInterface;
@@ -8,6 +9,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***
  *
@@ -21,13 +23,13 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
  ***/
 
 /**
- * UserRepository
+ * @extends \TYPO3\CMS\Extbase\Persistence\Repository<\R3H6\OidcServer\Domain\Model\User>
  */
-final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository implements IdentityProviderInterface, LoggerAwareInterface
+final class UserRepository extends Repository implements IdentityProviderInterface, LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
-    public function initializeObject()
+    public function initializeObject(): void
     {
         /** \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings $querySettings */
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
@@ -35,13 +37,16 @@ final class UserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository imp
         $this->setDefaultQuerySettings($querySettings);
     }
 
+    /**
+     * @param int|string|null $identifier
+     */
     public function getUserEntityByIdentifier($identifier)
     {
         $this->logger->debug('Get user', ['identifier' => $identifier]);
-        $this->initializeObject();
-
-        $user = $this->findByUid($identifier);
-
-        return $user;
+        $userEntity = $this->findByIdentifier((int)$identifier);
+        if ($userEntity === null) {
+            throw new \RuntimeException('User not found', 1729277694139);
+        }
+        return $userEntity;
     }
 }

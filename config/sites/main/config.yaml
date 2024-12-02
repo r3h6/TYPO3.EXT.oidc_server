@@ -1,0 +1,16 @@
+base: 'https://typo3-oidc-server.ddev.site/'
+dependencies:
+  - oidc-server/setup
+  - typo3/fluid-styled-content
+  - typo3/felogin
+languages:
+  -
+    title: English
+    enabled: true
+    languageId: 0
+    base: /
+    locale: en_US.UTF-8
+    navigationTitle: English
+    flag: us
+rootPageId: 1
+websiteTitle: ''

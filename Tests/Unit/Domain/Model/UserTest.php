@@ -1,12 +1,15 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Unit\Domain\Model;
 
-use TYPO3\CMS\Core\Resource\FileInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use R3H6\OidcServer\Domain\Model\User;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /***
  *
@@ -19,36 +22,35 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  ***/
 
-/**
- * UserTest
- */
-class UserTest extends \TYPO3\TestingFramework\Core\Unit\UnitTestCase
+class UserTest extends UnitTestCase
 {
-    /**
-     * @var \R3H6\OidcServer\Domain\Model\User
-     */
-    protected $subject;
+    protected User $subject;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = new \R3H6\OidcServer\Domain\Model\User();
+        $this->subject = new User();
     }
 
     /**
      * @test
      */
-    public function getClaimsContainsPicture()
+    public function getClaimsContainsPicture(): void
     {
-        // $GLOBALS['_SERVER']['REQUEST_URI'] = 'http://localhost/oauth/userinfo';
         GeneralUtility::setIndpEnv('TYPO3_REQUEST_HOST', 'http://localhost');
 
-        $resource = $this->prophesize(FileInterface::class);
-        $resource->getPublicUrl()->willReturn('fileadmin/user_upload/profile.jpg');
-        $image = $this->prophesize(FileReference::class);
-        $image->getOriginalResource()->willReturn($resource->reveal());
+        $file = $this->createMock(\TYPO3\CMS\Core\Resource\FileReference::class);
+        $file->method('getPublicUrl')->willReturn('/fileadmin/user_upload/profile.jpg');
+
+        $fileReference = $this->createMock(FileReference::class);
+        $fileReference->method('getOriginalResource')->willReturn($file);
+
         $images = new ObjectStorage();
-        $images->attach($image->reveal());
+        $images->attach($fileReference);
+
+        $eventDispatcher = $this->createMock(EventDispatcherInterface::class);
+        GeneralUtility::addInstance(EventDispatcherInterface::class, $eventDispatcher);
+
         $this->subject->setImage($images);
 
         $claims = $this->subject->getClaims();

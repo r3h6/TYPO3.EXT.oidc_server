@@ -1,8 +1,11 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
+
+use R3H6\OidcServer\Domain\Model\User;
 
 return [
-    \R3H6\OidcServer\Domain\Model\User::class => [
+    User::class => [
         'tableName' => 'fe_users',
         'properties' => [
             'nickname' => [

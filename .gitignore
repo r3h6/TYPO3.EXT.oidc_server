@@ -3,3 +3,6 @@
 /composer.lock
 .env
 *.cache
+/var
+/
+Documentation-GENERATED-temp

@@ -1,0 +1,13 @@
+diff --git a/Classes/Package/Package.php b/Classes/Package/Package.php
+index c6d25ca..d7cbe03 100644
+--- a/Classes/Package/Package.php
++++ b/Classes/Package/Package.php
+@@ -229,7 +229,7 @@ class Package implements PackageInterface
+         }
+         $this->isRelativePackagePath = false;
+ 
+-        return $this->packagePath = Environment::getComposerRootPath() . '/' . $this->packagePath;
++        return $this->packagePath = rtrim(Environment::getComposerRootPath() . '/' . $this->packagePath, '/') . '/';
+     }
+ 
+     /**

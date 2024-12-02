@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
 	<file source-language="en" datatype="plaintext" original="EXT:oidc_server/Resources/Private/Language/locallang_db" date="2021-02-07T18:19:17Z" product-name="oidc_server">
 		<header/>
 		<body>

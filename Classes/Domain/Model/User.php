@@ -1,12 +1,16 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Domain\Model;
 
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use OpenIDConnectServer\Entities\ClaimSetInterface;
+use Psr\EventDispatcher\EventDispatcherInterface;
+use R3H6\Oauth2Server\Domain\Model\FrontendUser;
+use R3H6\OidcServer\Event\ModifyUserClaimsEvent;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /***
@@ -20,59 +24,24 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
  *
  ***/
 
-/**
- * User
- */
 class User extends FrontendUser implements UserEntityInterface, ClaimSetInterface
 {
-    /**
-     * tstamp
-     *
-     * @var int
-     */
-    protected $tstamp;
+    protected int $tstamp = 0;
+    protected string $nickname = '';
+    protected string $gender = '';
+    protected ?\DateTime $birthdate = null;
+    protected string $locale = '';
+    protected string $zoneinfo = '';
 
-    /**
-     * nickname
-     *
-     * @var string
-     */
-    protected $nickname = '';
-
-    /**
-     * gender
-     *
-     * @var string
-     */
-    protected $gender = '';
-
-    /**
-     * birthdate
-     *
-     * @var \DateTime
-     */
-    protected $birthdate;
-
-    /**
-     * locale
-     *
-     * @var string
-     */
-    protected $locale = '';
-
-    /**
-     * zoneinfo
-     *
-     * @var string
-     */
-    protected $zoneinfo = '';
-
-    public function getIdentifier()
+    public function getIdentifier(): string
     {
-        return $this->uid;
+        if ($this->uid === null) {
+            throw new \RuntimeException('User has no uid', 1729277796223);
+        }
+        return (string)$this->uid;
     }
 
-    public function getClaims()
+    public function getClaims(): array
     {
         $claims = [
             // profile
@@ -87,16 +56,16 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'middle_name' => $this->middleName,
             'nickname' => $this->nickname,
             'preferred_username' => $this->username,
-            'profile' => '',
-            'picture' => call_user_func(function (ObjectStorage $images) {
+            'picture' => call_user_func(function (ObjectStorage $images): string {
                 foreach ($images as $image) {
-                    return GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST') . '/' . $image->getOriginalResource()->getPublicUrl();
+                    assert($image instanceof FileReference);
+                    return rtrim((string)GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST'), '/') . '/' . ltrim((string)$image->getOriginalResource()->getPublicUrl(), '/');
                 }
                 return '';
             }, $this->image),
             'website' => $this->www,
             'gender' => $this->gender,
-            'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : '0000', // @phpstan-ignore-line
+            'birthdate' => $this->birthdate ? $this->birthdate->format('Y-m-d') : null,
             'zoneinfo' => $this->zoneinfo,
             'locale' => $this->locale,
             'updated_at' => $this->tstamp,
@@ -107,100 +76,62 @@ class User extends FrontendUser implements UserEntityInterface, ClaimSetInterfac
             'phone_number' => $this->telephone,
             'phone_number_verified' => true,
             // address
-            'address' => implode(', ', array_filter([
-                trim($this->address),
-                trim($this->zip . ' ' . $this->city),
-                trim($this->country),
-            ])),
+            'address' => [
+                'formatted' => implode(', ', array_filter([
+                    trim($this->address),
+                    trim($this->zip . ' ' . $this->city),
+                    trim($this->country),
+                ])),
+                'street_address' => $this->address,
+                'locality' => $this->city,
+                'postal_code' => $this->zip,
+                'country' => $this->country,
+            ],
         ];
 
-        $hooks = (array)($GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['oidc_server']['domain/model/user/modify-claims'] ?? []);
-        foreach ($hooks as $classRef) {
-            if (is_a($classRef, UserGetClaimsHookInterface::class, true)) {
-                $hook = GeneralUtility::makeInstance($classRef);
-                $hook->modifyClaims($claims, $this);
-            }
-        }
+        $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+        $event = new ModifyUserClaimsEvent($claims, $this);
+        $eventDispatcher->dispatch($event);
 
-        return $claims;
+        return $event->getClaims();
     }
 
-    /**
-     * Returns the nickname
-     *
-     * @return string $nickname
-     */
-    public function getNickname()
+    public function getNickname(): string
     {
         return $this->nickname;
     }
 
-    /**
-     * Sets the nickname
-     *
-     * @param string $nickname
-     */
-    public function setNickname($nickname)
+    public function setNickname(string $nickname): void
     {
         $this->nickname = $nickname;
     }
 
-    /**
-     * Returns the gender
-     *
-     * @return string $gender
-     */
-    public function getGender()
+    public function getGender(): string
     {
         return $this->gender;
     }
 
-    /**
-     * Sets the gender
-     *
-     * @param string $gender
-     */
-    public function setGender($gender)
+    public function setGender(string $gender): void
     {
         $this->gender = $gender;
     }
 
-    /**
-     * Returns the birthdate
-     *
-     * @return \DateTime $birthdate
-     */
-    public function getBirthdate()
+    public function getBirthdate(): ?\DateTime
     {
         return $this->birthdate;
     }
 
-    /**
-     * Sets the birthdate
-     *
-     * @param \DateTime $birthdate
-     */
-    public function setBirthdate(\DateTime $birthdate)
+    public function setBirthdate(?\DateTime $birthdate): void
     {
         $this->birthdate = $birthdate;
     }
 
-    /**
-     * Returns the locale
-     *
-     * @return string $locale
-     */
-    public function getLocale()
+    public function getLocale(): string
     {
         return $this->locale;
     }
 
-    /**
-     * Sets the locale
-     *
-     * @param string $locale
-     */
-    public function setLocale($locale)
+    public function setLocale(string $locale): void
     {
         $this->locale = $locale;
     }

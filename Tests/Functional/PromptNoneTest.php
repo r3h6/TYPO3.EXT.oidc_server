@@ -1,7 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 namespace R3H6\OidcServer\Tests\Functional;
+
+use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequest;
+use TYPO3\TestingFramework\Core\Functional\Framework\Frontend\InternalRequestContext;
 
 /***
  *
@@ -14,35 +18,25 @@ namespace R3H6\OidcServer\Tests\Functional;
  *
  ***/
 
-/**
- * PromptNoneTest
- */
-class PromptNoneTest extends FunctionalTestCase
+class PromptNoneTest extends ApplicationTestCase
 {
-    use FunctionalTestHelper;
-
     /**
      * @test
      */
-    public function promptNoneReturnsErrorIfNotAuthenticated()
+    public function promptNoneReturnsErrorIfNotAuthenticated(): void
     {
-        if (version_compare(TYPO3_version, '11.5', '>=')) {
-            self::markTestSkipped('Needs to be reworked');
-        }
-
-        $response = $this->doFrontendRequest(
-            'GET',
-            '/oauth2/authorize',
-            [
-                'response_type' => 'code',
-                'client_id' => '660e56d72c12f9a1e2ec',
-                'redirect_uri' => 'http://localhost/',
-                'scope' => 'openid',
-                'prompt' => 'none',
-            ]
-        );
+        $request = new InternalRequest('https://localhost/oauth2/authorize?' . http_build_query([
+            'response_type' => 'code',
+            'client_id' => 'test0000-0000-0000-0000-000000000001',
+            'redirect_uri' => 'https://localhost/redirect',
+            'state' => 'bwqjmz2j2gs',
+            'scope' => 'openid',
+            'prompt' => 'none',
+        ]));
+        $context = new InternalRequestContext();
+        $response = $this->executeFrontendSubRequest($request, $context);
 
         $json = json_decode((string)$response->getBody(), true);
-        self::assertSame('login_required', $json['error']);
+        self::assertSame('login_required', $json['error'], 'Response: ' . $response->getBody());
     }
 }
