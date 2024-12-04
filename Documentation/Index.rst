@@ -2,9 +2,9 @@
 
 .. _start:
 
-===========
-oidc_server
-===========
+=================
+TYPO3 OIDC Server
+=================
 
 :Extension key:
     oidc_server
