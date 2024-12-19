@@ -60,11 +60,6 @@
 		"typo3/cms": {
 			"extension-key": "oidc_server",
 			"web-dir": ".Build/public"
-		},
-		"patches": {
-			"typo3/cms-core": {
-				"Fix path issue": "Build/Patches/package-path.diff"
-			}
 		}
 	},
 	"scripts": {
